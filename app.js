@@ -1,24 +1,24 @@
 /* =====================================================================
-   app.js — 萬維鋼《現代思維工具100講》渲染邏輯
+   app.js — 萬維鋼《現代思維工具100講》渲染與互動邏輯
    ===================================================================== */
 
-// Mermaid 初始化（溫暖色系主題）
+// Mermaid 初始化（溫暖色系主題配置）
 mermaid.initialize({
   startOnLoad: false,
   theme: 'base',
   themeVariables: {
-    primaryColor: '#3a2510',
-    primaryTextColor: '#fef3e2',
-    primaryBorderColor: '#f0a500',
-    lineColor: '#f0a500',
-    secondaryColor: '#241a0e',
-    tertiaryColor: '#1a1208',
-    background: '#1a1208',
-    mainBkg: '#2a1c0c',
-    nodeBorder: '#f0a500',
-    clusterBkg: '#241a0e',
-    titleColor: '#f0c060',
-    edgeLabelBackground: '#1a1208',
+    primaryColor: '#3d2b1f',
+    primaryTextColor: '#fdf5eb',
+    primaryBorderColor: '#f5a623',
+    lineColor: '#f5a623',
+    secondaryColor: '#281d14',
+    tertiaryColor: '#18120c',
+    background: '#18120c',
+    mainBkg: '#2d2014',
+    nodeBorder: '#f5a623',
+    clusterBkg: '#221a12',
+    titleColor: '#f7c768',
+    edgeLabelBackground: '#18120c',
     fontFamily: 'Noto Sans TC, Inter, sans-serif',
   },
   flowchart: { useMaxWidth: true, htmlLabels: true }
@@ -41,7 +41,7 @@ function svgIcon(name) {
 // 渲染：總覽頁面
 // ──────────────────────────────────────────────────────────────────────
 function renderOverview() {
-  // Hero
+  // Hero Banner
   const hero = document.getElementById('overview-hero');
   if (hero) {
     hero.innerHTML = `
@@ -49,7 +49,7 @@ function renderOverview() {
       <p class="hero-subtitle">${overviewData.heroSubtitle}</p>`;
   }
 
-  // Stats
+  // Stats Grid
   const statsGrid = document.getElementById('overview-stats');
   if (statsGrid) {
     statsGrid.innerHTML = overviewData.stats.map(s => `
@@ -62,7 +62,7 @@ function renderOverview() {
       </div>`).join('');
   }
 
-  // Module cards
+  // Module Grid
   const modulesEl = document.getElementById('overview-modules');
   if (modulesEl) {
     modulesEl.innerHTML = overviewData.modules.map(m => `
@@ -71,7 +71,7 @@ function renderOverview() {
           <span class="shift-badge">${m.label} · ${m.range}</span>
         </div>
         <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
-          <div class="stat-icon" style="color:var(--accent-gold)">${m.icon}</div>
+          <div class="stat-icon" style="color:var(--accent-gold);">${m.icon}</div>
           <div class="lecture-title">${m.title}</div>
         </div>
         <p class="lecture-summary">${m.desc}</p>
@@ -81,7 +81,7 @@ function renderOverview() {
       </div>`).join('');
   }
 
-  // Shift cards
+  // Shift Cards
   const shiftsEl = document.getElementById('overview-shifts');
   if (shiftsEl) {
     shiftsEl.innerHTML = overviewData.shifts.map(s => `
@@ -106,25 +106,21 @@ function renderOverview() {
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// 渲染：E01
+// 渲染：E01 基本世界觀
 // ──────────────────────────────────────────────────────────────────────
 function renderE01() {
   const container = document.getElementById('e01-content');
   if (!container) return;
 
   let html = `<div class="quote-box">${e01Data.quote}</div>`;
-
-  // SVG flow diagram
   html += `<div class="svg-wrap">${e01Data.svgDiagram}</div>`;
-
-  // Lecture cards
   html += e01Data.lectures.map(l => renderLectureCard(l)).join('');
 
   container.innerHTML = html;
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// 渲染：E02
+// 渲染：E02 成長戰略
 // ──────────────────────────────────────────────────────────────────────
 function renderE02() {
   const container = document.getElementById('e02-content');
@@ -142,7 +138,7 @@ function renderE02() {
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// 渲染：E03
+// 渲染：E03 決策與判斷
 // ──────────────────────────────────────────────────────────────────────
 function renderE03() {
   const container = document.getElementById('e03-content');
@@ -150,7 +146,6 @@ function renderE03() {
 
   let html = `<div class="quote-box">${e03Data.quote}</div>`;
 
-  // Decision framework table
   html += `
     <div class="section-header" style="margin-top:0;">
       <h2 class="section-title">決策工具框架總覽</h2>
@@ -167,7 +162,7 @@ function renderE03() {
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// 渲染：E04（學習教育）
+// 渲染：E04 學習與教育
 // ──────────────────────────────────────────────────────────────────────
 function renderE04() {
   const container = document.getElementById('e04-content');
@@ -175,28 +170,28 @@ function renderE04() {
 
   let html = `<div class="quote-box">${e04Data.quote}</div>`;
 
-  // Module overview table
+  // 1. 五層骨架表格
   html += `
     <div class="section-header" style="margin-top:0;">
-      <h2 class="section-title">E04 模塊五層骨架總覽</h2>
+      <h2 class="section-title">E04 模組五層骨架總覽</h2>
     </div>
     ${e04Data.tableHtml}`;
 
-  // ICAP SVG
+  // 2. ICAP SVG 圖表
   html += `
-    <div class="section-header" style="margin-top:2rem;">
+    <div class="section-header" style="margin-top:2.2rem;">
       <h2 class="section-title">ICAP 學習參與強度梯級圖</h2>
     </div>
     <div class="svg-wrap">${e04Data.icapSvg}</div>`;
 
-  // School function table
+  // 3. 學校三功能表格
   html += `
-    <div class="section-header" style="margin-top:2rem;">
-      <h2 class="section-title">學校三功能×各階段配比</h2>
+    <div class="section-header" style="margin-top:2.2rem;">
+      <h2 class="section-title">學校三功能 × 各階段配比表</h2>
     </div>
     ${e04Data.schoolTableHtml}`;
 
-  // Category lecture cards
+  // 4. 逐講內容卡片
   html += e04Data.categories.map(cat => `
     <div class="category-block">
       <div class="category-title">${cat.title}</div>
@@ -224,7 +219,7 @@ function renderLectureCard(l) {
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// Tab 切換
+// Tab 切換邏輯
 // ──────────────────────────────────────────────────────────────────────
 const TAB_MAP = {
   overview: 'tab-overview',
@@ -237,24 +232,19 @@ const TAB_MAP = {
 let renderedTabs = new Set();
 
 function switchTab(tabKey) {
-  // Hide all
   Object.values(TAB_MAP).forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.remove('active');
   });
 
-  // Remove active from all nav items
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
 
-  // Show selected
   const target = document.getElementById(TAB_MAP[tabKey]);
   if (target) target.classList.add('active');
 
-  // Highlight nav
   const navEl = document.querySelector(`[data-tab="${tabKey}"]`);
   if (navEl) navEl.classList.add('active');
 
-  // Render content if not already done
   if (!renderedTabs.has(tabKey)) {
     renderedTabs.add(tabKey);
     if (tabKey === 'overview') renderOverview();
@@ -263,17 +253,16 @@ function switchTab(tabKey) {
     else if (tabKey === 'E03') renderE03();
     else if (tabKey === 'E04') renderE04();
 
-    // Re-run mermaid on new content
     setTimeout(() => {
       try { mermaid.run(); } catch (e) { /* ignore */ }
-    }, 100);
+    }, 120);
   }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// 搜索 Modal
+// 搜尋 Modal 邏輯
 // ──────────────────────────────────────────────────────────────────────
 const searchModal = document.getElementById('search-modal');
 const searchInput = document.getElementById('search-input');
@@ -281,7 +270,7 @@ const searchResults = document.getElementById('search-results');
 
 function openSearch() {
   searchModal.classList.add('active');
-  setTimeout(() => searchInput.focus(), 50);
+  setTimeout(() => searchInput.focus(), 60);
 }
 
 function closeSearch() {
@@ -315,17 +304,17 @@ searchInput.addEventListener('input', () => {
   ).slice(0, 10);
 
   if (!results.length) {
-    searchResults.innerHTML = `<div style="color:var(--text-muted);padding:1rem;text-align:center;">沒有找到相關內容</div>`;
+    searchResults.innerHTML = `<div style="color:var(--text-muted);padding:1.2rem;text-align:center;">沒有找到相關內容</div>`;
     return;
   }
 
   searchResults.innerHTML = results.map(r => `
     <div class="search-result-item" onclick="switchTab('${r.tab}');closeSearch();">
-      <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.3rem;">
-        <span class="lecture-num" style="padding:0.2rem 0.5rem;font-size:0.78rem;">第 ${r.num} 講</span>
+      <div style="display:flex;align-items:center;gap:0.65rem;margin-bottom:0.35rem;">
+        <span class="lecture-num" style="padding:0.2rem 0.55rem;font-size:0.78rem;">第 ${r.num} 講</span>
         <span class="tag">${r.tab}</span>
       </div>
-      <div style="font-weight:600;font-size:0.93rem;color:var(--text-primary);">${r.title}</div>
+      <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);">${r.title}</div>
     </div>`).join('');
 });
 
@@ -340,12 +329,11 @@ themeBtn.addEventListener('click', () => {
   localStorage.setItem('theme', isDark ? 'light' : 'dark');
 });
 
-// 讀取儲存的主題
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
 
 // ──────────────────────────────────────────────────────────────────────
-// 導航欄點擊事件綁定
+// 初始化事件綁定
 // ──────────────────────────────────────────────────────────────────────
 document.querySelectorAll('.nav-item').forEach(item => {
   item.addEventListener('click', () => {
@@ -354,14 +342,10 @@ document.querySelectorAll('.nav-item').forEach(item => {
   });
 });
 
-// ──────────────────────────────────────────────────────────────────────
-// 初始化
-// ──────────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   renderOverview();
   renderedTabs.add('overview');
 
-  // Init Mermaid for pre-existing charts in HTML
   setTimeout(() => {
     try { mermaid.run(); } catch (e) { /* ignore */ }
   }, 200);
