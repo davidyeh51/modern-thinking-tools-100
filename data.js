@@ -1,592 +1,542 @@
-// Structured Data for 万维钢《现代思维工具100讲》 Web App
+/* =====================================================================
+   data.js — 萬維鋼《現代思維工具100講》全景看板數據（繁體中文版）
+   包含 E01 基本世界觀 / E02 成長戰略 / E03 決策判斷 / E04 學習教育
+   ===================================================================== */
 
-const APP_DATA = {
-  overview: {
-    title: "万维钢·现代思维工具100讲（01-45讲全景总览）",
-    subtitle: "涵盖基本世界观、个人成长战略、决策与判断三大核心板块",
-    stats: [
-      { label: "精讲讲数", value: "45 讲", icon: "book-open", desc: "完整拆解 001-045 讲核心干货" },
-      { label: "三大模块", value: "3 大板块", icon: "layers", desc: "世界观 → 成长战略 → 决策判断" },
-      { label: "底层模型", value: "20+ 硬核模型", icon: "cpu", desc: "自由能、贝叶斯、凯利、OODA、反脆弱" },
-      { label: "思维转折", value: "5 大范式转换", icon: "refresh-cw", desc: "破除平均化、稳态、加法、结果论与被动" }
-    ],
-    paradigmShifts: [
-      {
-        title: "加法思维 vs 乘法思维",
-        module: "E01 基本世界观 (002)",
-        oldMindset: "按部就班线性努力，勤俭求平均，补短板",
-        newMindset: "寻找可积累的正反馈复利长板，加入重尾/幂律分布",
-        svgIcon: "heavyTail"
-      },
-      {
-        title: "稳态生存 vs 能动者",
-        module: "E01 基本世界观 (003, 007)",
-        oldMindset: "文化滞后的匮乏顺从，被旧叙事驱使的工具人",
-        newMindset: "重写内核参数的 Agent，主动调用工具、制造恰当波动",
-        svgIcon: "agency"
-      },
-      {
-        title: "零和掠夺 vs 供给侧合作",
-        module: "E02 成长战略 (009, 017)",
-        oldMindset: "把竞争看作抢资源，内耗于人际角力",
-        newMindset: "提供低摩擦可验证价值，占据跨阶层结构洞",
-        svgIcon: "supplySide"
-      },
-      {
-        title: "结果论 vs 概率分布",
-        module: "E03 决策判断 (028, 033)",
-        oldMindset: "以成败论英雄，赢了盲目自大、输了怨天尤人",
-        newMindset: "评估均值、方差与下行风险，用凯利公式按 edge 出手",
-        svgIcon: "probability"
-      },
-      {
-        title: "局部贪心 vs 状态杠杆 & OODA",
-        module: "E03 决策判断 (038, 045)",
-        oldMindset: "到处瞎努力，盲目快速反应，陷于琐事耗费",
-        newMindset: "看重一步之后的未来状态（贝尔曼方程），定向改叙事快速换脑",
-        svgIcon: "ooda"
-      }
-    ],
-    moduleMasterSummary: [
-      {
-        id: "E01",
-        name: "E01 基本世界观（第 01～07 讲）",
-        shortDesc: "理解世界最基础的六条设定与三层自我模型",
-        keyConcepts: ["叙事 (宇宙第一性)", "重尾 (幂律分布)", "能动 (稳态陷阱)", "约束 (算账破盲目)", "可能 (不确定性燃料)", "内核 (改写参数)"],
-        bgGradient: "from-blue-600 to-indigo-800"
-      },
-      {
-        id: "E02",
-        name: "E02 模块一：成长战略（第 08～26 讲）",
-        shortDesc: "如何主动把自己活成一个能持续变强又不被异化的能动者",
-        keyConcepts: ["能耐寻求 (君子不器)", "供给侧心态", "复利七资本", "自由能原理", "主动高认知负荷", "认知解耦", "共鸣 (使命)"],
-        bgGradient: "from-emerald-600 to-teal-800"
-      },
-      {
-        id: "E03",
-        name: "E03 模块二：决策与判断（第 27～045 讲）",
-        shortDesc: "在无法算尽的世界里设定立场、看清局面、管理风险与修正行动",
-        keyConcepts: ["无免费午餐 (归纳偏置)", "贝叶斯先验", "信息价值 VOI", "凯利公式", "非遍历性", "反脆弱", "状态杠杆", "OODA 环"],
-        bgGradient: "from-amber-600 to-orange-800"
-      }
-    ]
-  },
+// ──────────────────────────────────────────────────────────────────────
+// 總覽頁面數據
+// ──────────────────────────────────────────────────────────────────────
+const overviewData = {
+  heroTitle: '萬維鋼·現代思維工具 100 講',
+  heroSubtitle: '把現代科學最前沿的思維框架，轉化為每個人都能用的決策、行動、學習工具。四大模塊、57 講精華，構建屬於你的認知操作系統。',
 
-  e01: {
-    id: "E01",
-    title: "E01 基本世界观（第 01～07 讲）",
-    subtitle: "世界观不能自主选择，只能认识到什么程度就接受到什么程度",
-    summaryQuote: "世界的本体是叙事；叙事如实揭开后，世界真相是重尾而非平均；但多数人被文化滞后的旧叙事困住，缺乏能动性；一旦行动，必须尊重硬约束；约束之内的不确定性是意义的燃料；而承接这一切的主体，是可被重训的内核自我。",
-    lectures: [
-      {
-        num: "01",
-        title: "叙事：这个宇宙的第一性原理",
-        summary: "宇宙这个切片之所以长这样，是因为满足了叙事条件。因果（狭义相对论）、想象力（量子力学）、舞台（广义相对论）构成叙事三要素。叙事决定了大脑的预测处理、提供意义感并促成公共协调。一切叙事皆主观，叙事决定你的目标函数。",
-        highlights: [
-          "物理学 Ruliad 概念：宇宙只是无数可能物理定律集合中的一个切片",
-          "丹尼特'叙事重心'：不是先有我才有叙事，是先有叙事才需要一个我",
-          "弗里斯顿自由能原理：大脑靠叙事做预测，减少惊讶感",
-          "同一组事实可以讲出不同故事（'负增长'/'待业'/'返乡创业'），人要主动争夺'叙事权'"
-        ],
-        iconKey: "narrative"
-      },
-      {
-        num: "02",
-        title: "重尾：世界服从极端值",
-        summary: "真实世界是重尾分布（幂律/80-20法则），而非平均分布。区分加法世界（无复利）与乘法世界（正反馈/马太效应）。财富、声望、学术产出皆为乘法产物。拉平重尾代价巨大，个人应跳出求平均、补短板的思维，找到长板做乘法。",
-        highlights: [
-          "加法世界：一天劳动换一天报酬；乘法世界：增量 = 动作 × 存量",
-          "胜者通吃有代价，但取消乘法代价更大（乌干达驱赶亚裔企业家反例）",
-          "能力呈正态分布，但成果呈重尾分布（复利与运气放大）",
-          "行动：通过正反馈、按比例追加投资（pro rata rights）加入重尾"
-        ],
-        iconKey: "heavyTail"
-      },
-      {
-        num: "03",
-        title: "能动：稳态生存的观念陷阱",
-        summary: "多数人被'稳态生存逻辑'束缚而不自知，这是文化滞后（观念更新慢于物质条件）的结果。匮乏驱动的风险厌恶、从众驱动的态度文化、简单线性努力观在现代高波动世界反而成为枷锁。人要做 Agent（调用工具者），而非被旧叙事驱使的工具。",
-        highlights: [
-          "三大基因：资源匮乏（零和思维/仇富）、强从众（面子/姿势当成果）、简单模型（指标主义）",
-          "在旧时代是局部理性，在现代高波动世界是成长枷锁",
-          "真正爱孩子的家长：希望孩子不那么听话、不必过度努力、敢制造波动",
-          "做能动者（Agent）：调用工具的人，而不是被旧叙事驱使的工具"
-        ],
-        iconKey: "agency"
-      },
-      {
-        num: "04",
-        title: "约束：先尊重，再行动",
-        summary: "大多数人的生活叙事本质是'许愿'。现实与想象的根本区别在于硬约束（无法绕开的限制）。四种硬约束：能量守恒、时间窗口、自然规律、他人的能动性。破除神话思维的武器是'算账'（谁出钱/资源哪里来）。",
-        highlights: [
-          "最接近现实的第六层小说仍不能代表真实世界，因为缺乏硬约束",
-          "连总统和马斯克都受制于预算结构（DOGE 省两万亿承诺被硬约束击碎）",
-          "算账：一句'谁出钱？'能戳破绝大多数一厢情愿的宏大叙事",
-          "约束划定确定性与安全感：有效叙事是在硬约束范围内找出路"
-        ],
-        iconKey: "constraint"
-      },
-      {
-        num: "05",
-        title: "问答：叙事与讲故事、造梦的区别",
-        summary: "澄清叙事与故事的区别（叙事广义无戏剧性，故事强虚构感）。探讨 AI 与人的区别（AI 是工作记忆上下文，人是修改神经元）。小众赛道与结构洞策略（斯科特·亚当斯'多项技能进前25%'）。能动的边界：不干预也是一种能动。",
-        highlights: [
-          "叙事 vs 故事：意识到是叙事就能随时跳出来",
-          "AI vs 人：AI 调用结束即出戏；人的经历改写神经元（内核自我）",
-          "资源不占优时选小众赛道（多面手+结构洞策略，如'卖豆腐的西施'）",
-          "大公司倾向抹平薪酬，小公司贴近真实的重尾分布"
-        ],
-        iconKey: "qa"
-      },
-      {
-        num: "06",
-        title: "可能：不确定性是意义的燃料",
-        summary: "五种无法消除的不确定性（混沌、计算不可约性、量子随机、奈特不确定性、博弈反身性）。模拟实验证明运气比能力更重要（最富有者最幸运）。人类渴望的是'把不确定变成确定'的瞬间，不确定性恰恰是叙事与意义的燃料。",
-        highlights: [
-          "五大不可消除的不确定性：天气预报上限、计算不可约、奈特黑天鹅等",
-          "意大利模拟实验：能力正态分布，40年随机事件后财富重尾分布，最富者最幸运",
-          "消极态度：渴望确定（被贩卖确定感利用）或被动接受；积极态度：管理坏的、拥抱好的",
-          "GPT 洞见：不确定性是意义的燃料，'一大块熟悉+一小块意外'最令人愉悦"
-        ],
-        iconKey: "possibility"
-      },
-      {
-        num: "07",
-        title: "内核：你的三个「自我」",
-        summary: "提出三层自我模型：进程自我（运行日志）、界面自我（人设/提示词 Prompt）、内核自我（算法权重 Weights）。真正的成长是改写内核自我的参数。杠杆在于训练语料与奖励函数。面对预测误差，改模型才是真正的成长。",
-        highlights: [
-          "进程自我 (Process Self) = 单次运行输入输出流（日志）",
-          "界面自我 (Interface Self) = Prompt/角色人设（受 context 影响的变量）",
-          "内核自我 (Core Self) = LLM 权重 Weights（慢变量，决定直觉与潜意识）",
-          "改写内核杠杆：训练语料（摄入信息/圈子）+ 奖励函数（行为打分）",
-          "终极自由：人比 AI 多一层自由——可自主选择自己的训练样本与奖励函数"
-        ],
-        iconKey: "coreSelf"
-      }
-    ],
-    threeSelvesTable: [
-      { self: "进程自我 (Process Self)", def: "当下直观感受到的'我'，区分我与非我；被动运行日志", llm: "单次运行中的输入-推理-输出流", level: "快变量 / 日志" },
-      { self: "界面自我 (Interface Self)", def: "稳定可被他人观察的人设/标签/自传，受情境 context 影响", llm: "系统提示词 (Prompt) / 角色设定", level: "中变量 / 人设" },
-      { self: "内核自我 (Core Self)", def: "不可直接感知的先验假设与预测模型，决定直觉与潜意识", llm: "模型权重 (Weights)", level: "慢变量 / 算法内核" }
-    ]
-  },
+  stats: [
+    { icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`, val: '57', lbl: '精華講數（01–57）' },
+    { icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`, val: '4', lbl: '核心模塊' },
+    { icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`, val: '100+', lbl: '思維工具與概念' },
+    { icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`, val: '5', lbl: '核心範式轉變' },
+  ],
 
-  e02: {
-    id: "E02",
-    title: "E02 模块一：成长战略（第 08～26 讲）",
-    subtitle: "回答一个人该如何主动把自己活成一个能持续变强、又不被异化的能动者",
-    summaryQuote: "以自由能原理（014）为深层地基，008 能耐寻求定理提供总方针（增加未来选项/赋能），021 安全感提供心理前提，019/020 提供情绪与身份管理工具；09/10/17 解决外部资源与结构洞积累；022/023/025 解决赛道与探索利用节律；最终收束于 026 共鸣（使命×共鸣 = 高级生活）。",
-    categories: [
-      {
-        name: "内在驱动 · 目标机制",
-        lectures: [
-          {
-            num: "08",
-            title: "能耐寻求定理：君子不器",
-            summary: "AI 智能体研究提出 Power-Seeking Theorem：在不确定奖励环境中，最优策略是尽量增加未来选项（options），而非押注单一目标。君子不器，要做目标的主人而非奴隶。追求赋能（增加信道容量），金钱与声望是副产品（斜行定律）。",
-            highlights: ["君子 vs 器：器是被单一 KPI/隧道效应驱使的工具人", "斜行定律 (obliquity)：好东西（金钱/幸福）往往是间接追求得到的副产品", "赋能 (Empowerment)：凡让你选项变多的是赋能，凡受制于人的是失能"],
-            iconKey: "powerSeeking"
-          },
-          {
-            num: "12",
-            title: "自我决定理论：一流人物不可能是痛苦的卷王",
-            summary: "SDT 理论区分动机质量而非强度（从外部调节到整合调节与内在动机）。内化需满足三种心理需求：自主感 (Autonomy)、胜任感 (Competence)、关系感 (Relatedness)。外部金钱奖励会产生挤出效应（过度理由效应）。",
-            highlights: ["动机 6 层连续体：知之者不如好之者，好之者不如乐之者", "三大核心需求：自主感 + 胜任感 + 关系感 = 能动性自动发芽", "打工人策略：挖掘意义、搞微决策、把任务游戏化，控制点向内移动"],
-            iconKey: "sdt"
-          },
-          {
-            num: "16",
-            title: "WOOP：从生活的默认设置中觉醒",
-            summary: "98% 的人处于漂流状态（让环境与默认选项做决定）。WOOP 四步：Wish → Outcome → Obstacle (内心障碍) → Plan (If-Then 执行意图)。核心武器是心理比对与执行意图，消解蔡加尼克效应，做到'那一秒别漂流'。",
-            highlights: ["默认设置极度强大（如器官捐献默认选项实验）", "WOOP = 愿望 + 结果感受 + 内心障碍 + If-Then 执行意图", "心理比对绑定情境线索与行动，将工作记忆残留移除"],
-            iconKey: "woop"
-          }
-        ]
-      },
-      {
-        name: "深层机制",
-        lectures: [
-          {
-            num: "14",
-            title: "自由能原理：活着就是对齐",
-            summary: "弗里斯顿自由能原理：生命的策略是最小化自由能（惊讶/Surprise，即与环境的不融洽度）。通过知觉推断（改想法）和主动推断（改世界）降低自由能。恰到好处的'小惊讶'才是心流、胜任感与学习区的来源。",
-            highlights: ["马尔可夫毯：内外分界接口，双向对齐（做鱼不是做水）", "惊讶区间：零惊讶导致钝化，大惊讶导致崩溃，小惊讶创造心流", "抑郁症机制：持极度负面先验、拒绝更新模型"],
-            iconKey: "freeEnergy"
-          }
-        ]
-      },
-      {
-        name: "外部合作 · 位置积累",
-        lectures: [
-          {
-            num: "09",
-            title: "供给侧心态：怎样在正和的世界合作（以及竞争）",
-            summary: "现代市场因信息可复制与分工网络效应天然正和。供给侧心态 = 把自己当成可验证价值的模块，消除协作摩擦（'胶水员工'），嵌入长期重复博弈。竞争本质是抢'合作资格'，声誉是对未来合作价值的贴现。",
-            highlights: ["现代竞争本质：抢合作资格；被从合作名单划掉是最大惩罚", "供给侧三件事：价值生产 + 摩擦消除 + 网络触达", "声誉：重复博弈中他人对你未来合作价值的贴现"],
-            iconKey: "supplySide"
-          },
-          {
-            num: "10",
-            title: "复利：可积累的优势",
-            summary: "复利秘密在于持续时间。r > g 解释了财富差距（资本优势可积累，纯打工不可积累）。提出 7 种资本（金钱、人力、健康、社会、声望、心理、体验）。ROI 人生路线：青年抬利率、中年深耕杠杆、老年取舍分红。",
-            highlights: ["巴菲特 vs 西蒙斯：复利的灵魂在于时间跨度", "七种可积累资本：金钱、人力、健康、社会、声望、心理、体验", "人生 ROI 阶段：年轻强在增长，中年强在杠杆，老年强在取舍"],
-            iconKey: "compound"
-          },
-          {
-            num: "17",
-            title: "社交资本、结构洞和搬家：容易向上流动的位置",
-            summary: "切蒂研究证明：跨阶层'经济连通性'最能预测穷人向上流动。打破交友偏差靠共同任务。罗纳德·伯特'结构洞'：处于互不相连网络之间的经纪人，价值在翻译与创造。位置是命运的一部分，不适宜要主动换位。",
-            highlights: ["切蒂研究：经济连通性（跨阶层交友）是向上流动最强预测因子", "结构洞 (Structural Hole)：站在网络缝隙处，价值在于翻译与创造", "越是不利的位置，越要主动搬家/换位置"],
-            iconKey: "structuralHole"
-          }
-        ]
-      },
-      {
-        name: "内心工具 · 情绪与身份",
-        lectures: [
-          {
-            num: "15",
-            title: "主动高认知负荷：注意力的 Pro 模式",
-            summary: "注意力最稀缺。任务简单时大脑进入默认模式网络走神。万维钢提出'主动高认知负荷'：手动把任何任务变成高负荷思考（逆向工程/质疑剧情）。走神导致不快乐（哈佛研究），专注才能挤走走神。",
-            highlights: ["走神的心是不快乐的心（因果关系：走神导致不快乐）", "主动高认知负荷：用高难度思考主动'挤走'走神", "专注是工程问题而非单纯道德/意志力问题"],
-            iconKey: "cognitiveLoad"
-          },
-          {
-            num: "19",
-            title: "认知解耦：三步调节负面情绪",
-            summary: "系统2思维核心：把'心中叙事'与'眼前事实'拆开。三步接化发：认知解离 (剥离感觉) → 调用视角 (换位思考) → 认知重评 (重构意义)。将威胁改写为挑战、针对我改写为情境。",
-            highlights: ["情绪不是对世界的反应，而是你对世界的构建（巴瑞特）", "认知解离：拉开距离（第三人称自称/时间抽离）", "认知重评接化发：防守(解离) → 化解(换位) → 转向(重评)"],
-            iconKey: "cognitiveDecoupling"
-          },
-          {
-            num: "20",
-            title: "身份认同：元认知黑魔法",
-            summary: "身份认同是人设与定义权。把身份当'我'会被驱使，当'我用的'就能驾驭。凯根成人心智发展 5 阶段：最高阶（自我转化心智）把身份当客体审视。设定他人身份与三种解释立场。守住内核稳定性。",
-            highlights: ["凯根心智发展：主体-客体转化，把身份当客体调用而非被其驱使", "重构身份叙事案例：'Don't mess with Texas' 解决乱扔垃圾", "忠告：内核自我保持稳定，否则'什么都能理解，什么都不再相信'"],
-            iconKey: "identity"
-          },
-          {
-            num: "21",
-            title: "安全感：人需要有所依靠",
-            summary: "人类本能是寻求依靠而非孤立。安全感来自关系的两大功能：安全基地 (鼓励探索) + 安全港湾 (允许脆弱)。可后天习得（觉察依恋、自我关怀、小环境）。谷歌发现团队第一要素是心理安全。",
-            highlights: ["安全基地 (鼓励探索) + 安全港湾 (接住脆弱)", "谷歌亚里士多德计划：团队第一成功要素是'心理安全'", "被依赖，是当今世界给你最好的待遇"],
-            iconKey: "safety"
-          }
-        ]
-      },
-      {
-        name: "策略性选择与终极意义",
-        lectures: [
-          {
-            num: "22",
-            title: "赛道选择：做天兵天将，还是做孙悟空？",
-            summary: "选择大于努力。天兵天将（体制内，人际关系逻辑，地位靠分配）与孙悟空（体制外，物理逻辑，地位靠自己创造）。孙悟空修不对称技能、利基构建与效应化（Effectuation：看手头有什么菜做什么饭）。",
-            highlights: ["天兵天将 vs 孙悟空：两种不同游戏规则，切忌心智混淆", "孙悟空策略：利基构建（创造生态位）+ 效应化拼凑创新", "天兵策略：搞政治但不忘修'花果山副本'"],
-            iconKey: "track"
-          },
-          {
-            num: "23",
-            title: "场域：识时务者为俊杰",
-            summary: "布迪厄场域理论：场域是关系网络，有各自规则与资本。四件套：场域、Doxa (潜规则)、惯习 (默认反应)、资本。象征资本可定义其他资本的正当性。必须先老实承认'这是水'。",
-            highlights: ["四件套：场域 (网络) + Doxa (潜规则) + 惯习 (反应模式) + 资本", "萨根效应：高级场域潜规则排斥'太出名'", "最值钱的是象征资本：决定谁有资格定义正当性"],
-            iconKey: "field"
-          },
-          {
-            num: "25",
-            title: "探索与利用：怎样继续做个年轻人",
-            summary: "多臂老虎机问题：探索与利用的权衡。剩余时间越长越该探索（吉廷斯指数）。连胜期 (hot streak) 研究：多样探索 → 捕捉感觉 → 集中利用深耕。年轻是系统更新的频率，而非皮肤状态。",
-            highlights: ["退出社会加速衰老；持续探索能创造'超级老年人'", "连胜期节律：探索多样性 → 发现契机 → 转向利用深耕", "年轻不是年龄，而是系统更新与探索的频率"],
-            iconKey: "exploreExploit"
-          },
-          {
-            num: "26",
-            title: "共鸣：高级生活的秘密（模块收官）",
-            summary: "努力叙事陷于享乐适应，躺平亦非答案。追求超越自我的使命。罗萨共鸣理论：共鸣是独立主体间的同频共振（横向/斜向/纵向）。共鸣关注频率而非振幅。使命 × 共鸣 = 高级生活。",
-            highlights: ["享乐适应陷阱：比较关注振幅 (谁更强)，共鸣关注频率 (谁同频)", "共鸣四条件：被触动、能回应、会转化、不完全可控", "高级生活 = 使命 (Purpose) × 共鸣 (Resonance)"],
-            iconKey: "resonance"
-          }
-        ]
-      },
-      {
-        name: "问答与答疑集锦",
-        lectures: [
-          { num: "011", title: "问答：为什么承认'原来我是错的'那么难？", summary: "硬约束检验标准；AI 对话内化思维；解离观念与身份认同；探索与利用动态平衡。", highlights: ["解离观念与身份认同才能放弃错误", "硬约束检验：看是否会成为头条新闻"], iconKey: "qa" },
-          { num: "013", title: "特别放送：基本世界观模块答疑直播笔记", summary: "叙事是相对权力；做乘法靠虚拟成分可复制；高波动不可逆；好运气是可创造的合作机会。", highlights: ["乘法放大器：虚拟成分可复制", "好运气本质：高可见性+好接口"], iconKey: "qa" },
-          { num: "018", title: "问答：为什么喜欢的事却难以启动？", summary: "吸血鬼悖论（先做才知道）；经验是可迁移资本；WOOP 最适合习惯养成。", highlights: ["零内省先做再说", "经验与说话能力是可迁移资本"], iconKey: "qa" },
-          { num: "024", title: "问答：如何判断'该深耕'还是'该挪位置'？", summary: "去留三大信号（参考类/宏观/体感）；认知重评 vs 阿Q精神；健康依赖是互相赋能。", highlights: ["看同背景参考类过得如何", "健康依赖是互相赋能而非失能"], iconKey: "qa" }
-        ]
-      }
-    ]
-  },
+  modules: [
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+      label: 'E01', title: '基本世界觀', range: '第 01–07 講',
+      desc: '理解世界的底層作業系統：敘事是宇宙第一性原理，冪律支配分佈，能動者打破穩態，約束塑造選擇，不確定性燃燒意義，三層自我不斷改寫。',
+      points: ['01 敘事：宇宙第一性原理', '02 重尾：世界服從極端值', '03 能動：打破穩態生存陷阱', '04 約束：先尊重，再行動', '06 可能：不確定性是意義燃料', '07 內核：三個自我']
+    },
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+      label: 'E02', title: '成長戰略', range: '第 08–26 講',
+      desc: '如何主動把自己活成能持續變強的能動者：能耐尋求、複利積累、身份認同、賽道選擇、探索與利用，最終以共鳴落地。',
+      points: ['08 能耐尋求：君子不器', '10 複利：七種可積累資本', '12 自我決定理論：動機質量', '17 社交資本與結構洞', '22 賽道選擇：孫悟空策略', '26 共鳴：使命與共鳴']
+    },
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+      label: 'E03', title: '決策與判斷', range: '第 27–45 講',
+      desc: '在無法被算盡的世界裡設定立場、看清局面、管理風險：貝葉斯更新、凱利公式、反脆弱、期權思維，最終用 OODA 環持續換腦。',
+      points: ['27 無免費午餐定理', '31 貝葉斯先驗：更新信念', '33 凱利公式：認知變現', '35 反脆弱：凸性收益', '38 狀態杠桿：貝爾曼方程', '45 OODA 環：定向比反應快']
+    },
+    {
+      icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+      label: 'E04', title: '學習與教育', range: '第 46–57 講',
+      desc: '在帶寬極其有限的大腦裡，用工程化的方式把世界裝進去並用得出來：認知負荷、ICAP、刻意練習、四層知識結構、默會知識、學習遷移。',
+      points: ['46 認知負荷理論：圖式=壓縮包', '47 ICAP：最高效的學習方法', '49 刻意練習：天賦與練習是乘法', '50 四層知識結構', '52 默會知識：AI 的邊界', '57 擁抱與橋接：學以致用']
+    },
+  ],
 
-  e03: {
-    id: "E03",
-    title: "E03 模块二：决策与判断（第 27～045 讲）",
-    subtitle: "在根本无法被算尽的世界里设定立场、看清局面、管理风险、避开幻觉并持续修正行动",
-    summaryQuote: "起点是 027 无免费午餐定理（决策的初心是任性偏置，强偏置弱偏执）；028 选概率分布；认知层 (29/31/32) 建模与贝叶斯更新；下注层 (33-35/37) 凯利仓位与反脆弱；排雷层 (39-41/43/44) 扫除偏差与超级预测；执行层 (38/45) 状态杠杆与 OODA 环（定向改叙事换脑子），形成完美闭环。",
-    layers: [
-      {
-        name: "1. 元规则 · 决策的生克",
-        description: "决策不可能客观中立，决策决的不是结果而是概率分布；首要指望是可活。",
-        lectures: [
-          {
-            num: "27",
-            title: "无免费午餐定理：诸行无常，有偏置才有决策",
-            summary: "No Free Lunch Theorem：平均而言所有算法表现一样。想在某领域好就必须付代价。机器学习必须先有归纳偏置 (Inductive Bias)。决策的初心是任性发愿。元认知：强先验 + 算法搜索 + 系统化冒险（强偏置，弱偏执）。偏见是生命力的证明。",
-            highlights: [
-              "无免费午餐定理：你必须为优化付出代价，先押注结构才能找到结构",
-              "决策的初心是任性/发愿：把搜索空间圈起来，目标函数定下来",
-              "高手心法：强偏置、弱偏执（老百姓无偏置优柔寡断，全偏执一条道走到黑）",
-              "AGI 时代人的核心价值：设定归纳偏置"
-            ],
-            iconKey: "noFreeLunch"
-          },
-          {
-            num: "28",
-            title: "概率分布：到底什么是决策？",
-            summary: "不能只看单次结果（结果偏误/Resulting）。生活像扑克而非国象。决策决的是概率分布，是对平行宇宙剪枝。看六参数：均值、方差、上下限、偏度、峰度、稳健性。首要指望不是必胜，而是可活（看最坏能多坏）。高水平者如斯多葛射箭手。",
-            highlights: [
-              "结果论 (Resulting)：别用单次结果评价决策好坏",
-              "决策是剪枝：切断其他可能，决定放弃什么",
-              "六参数：首要指望不是必胜而是可活（孙子'先为不可胜'）",
-              "斯多葛射箭手：尽力拉弓瞄准，离弦后保持冷静漠然"
-            ],
-            iconKey: "probability"
-          }
-        ]
-      },
-      {
-        name: "2. 认知工具 · 看清局面",
-        description: "建模、更新先验、筛选真正有价值的信息。",
-        lectures: [
-          {
-            num: "29",
-            title: "颗粒度和因果中介：用模型思考",
-            summary: "好调节器定理：调节器必须是系统的模型（理解到什么程度才能控制到什么程度）。颗粒度需恰到好处（最小描述长度 MDL：理解即压缩）。因果模型关键在于干预。别盯终点，盯中介（点球成金上垒率、足球期望威胁 xT）。",
-            highlights: [
-              "好调节器定理：你的认知结构必须同构于想控制的事物",
-              "最小描述长度 (MDL)：最好的模型是模型复杂度+例外补丁最小（理解即压缩）",
-              "别盯终点，盯中介：找到因果链条中的干预杠杆点"
-            ],
-            iconKey: "granularity"
-          },
-          {
-            num: "31",
-            title: "贝叶斯先验：判断是主观的，但可以更科学一点",
-            summary: "先验是成见，但是认知的起点。后验 = 先验 + 证据更新。概率是信念的度量。把世人普遍信念当先验，用具体信息做证据更新。克伦威尔法则：永远不要把概率设为 0 或 1。当事实改变时，我改变想法。",
-            highlights: [
-              "后验 = 先验 + 证据更新（先验低时，强证据后验仍不高）",
-              "概率是对无知程度的量化，人在记账而非瞎猜",
-              "克伦威尔法则：永远留有'我可能错了'的概率（切忌设 0 或 1）"
-            ],
-            iconKey: "bayes"
-          },
-          {
-            num: "32",
-            title: "信息价值：怎样区分沙子和金子",
-            summary: "VOI 理论：只有能改变实际行动的信息才有价值。信息焦虑因为决策未落地。高 VOI 信息特点：目标导向 (本地专门)、带痛感 (改先验)、出现在决策边界上。高 VOI 信息细碎无聊，绝不会在热搜头条。",
-            highlights: [
-              "VOI 定义：只有能改变实际行动的信息才有价值",
-              "信息焦虑本质：消费信息替代了决策落地（处于漂流状态）",
-              "高 VOI 集中在决策边界与本地卡点上，而非热搜宏大叙事"
-            ],
-            iconKey: "voi"
-          }
-        ]
-      },
-      {
-        name: "3. 下注与风险 · 仓位与结构",
-        description: "凯利仓位、非遍历性、脆弱/反脆弱、期权。",
-        lectures: [
-          {
-            num: "33",
-            title: "凯利公式：乘法世界里的认知变现",
-            summary: "凯利公式 f* = edge / odds。odds 是市场共识，edge 是你的认知优势。最大长期增长率受限于认知带宽。凯利赚的是超出大众认知的钱。edge 好时出手是义务。押太大和不敢押都是错，此乃仓位问题。少出手，重仓复利变量。",
-            highlights: [
-              "f* = edge / odds：凯利公式赚的是你超出大众认知的钱 (edge)",
-              "成长上限受限于认知带宽；edge 出现时出手是一种义务",
-              "生物表型赌注对冲：休眠细胞比例在数学上等价于凯利未下注比例"
-            ],
-            iconKey: "kelly"
-          },
-          {
-            num: "34",
-            title: "非遍历性：玩家怕方差，庄家爱方差",
-            summary: "阻碍复利的因素：本钱与方差。集合平均 ≠ 时间平均（几何平均）。个体沿时间线走经历时间平均，连亏撞上吸收壁。散户跑不赢大盘是数学必然。解法：少交易、杠铃策略（按凯利下注打败非遍历性）、成为庄家、风险共担。",
-            highlights: [
-              "集合平均（上帝视角）≠ 时间平均（凡人命运）",
-              "散户跑不赢大盘是数学机制：大盘是集合，散户经历时间平均",
-              "四解法：少交易 + 杠铃策略 + 跟庄家站一起 + 风险共担"
-            ],
-            iconKey: "ergodicity"
-          },
-          {
-            num: "35",
-            title: "脆弱和反脆弱：怎样利用非对称风险",
-            summary: "脆弱 = 凹函数 (∩，上行有限下行无底)；反脆弱 = 凸函数 (∪，詹森不等式：波动下平均收益高于平均状态)。排雷做减法 (Via Negativa) 与毁灭隔离。践行反脆弱：见机会下注、毒物兴奋效应 (Hormesis) 主动注入微压力。利益攸关 (Skin in the Game)。",
-            highlights: [
-              "脆弱=凹函数，反脆弱=凸函数（詹森不等式）",
-              "否定法 (Via Negativa) 做减法排雷；毁灭隔离允许小失败避免大失败",
-              "毒物兴奋效应 (Hormesis)：身体与系统需要可恢复的微压力"
-            ],
-            iconKey: "antifragile"
-          },
-          {
-            num: "37",
-            title: "期权：保留可选项的特权",
-            summary: "期权是权利而非义务。需满足专有进入权。形态：敏捷 MVP (看涨)、优先受让权、BATNA (看跌，无退路叫求情)、对赌协议。双向门 (可逆快速试错) vs 单向门 (不可逆三思)。聪明只是期权，需要执行力兑现。",
-            highlights: [
-              "期权价值在于专有进入权，涨能耐就是获得更多期权",
-              "BATNA (最佳替代方案) = 看跌期权，没有 BATNA 的谈判叫求情",
-              "双向门快速试错，单向门三思后 commit；聪明是期权，需交付兑现"
-            ],
-            iconKey: "options"
-          }
-        ]
-      },
-      {
-        name: "4. 排雷与纠偏 · 扫除盲区",
-        description: "选择偏差、回归均值、前景理论、参考类、超级预测。",
-        lectures: [
-          {
-            num: "39",
-            title: "选择偏差：就算无人说谎，你看到的也不是真实世界",
-            summary: "视野内的样本不等概率代表真实世界。四大类：自我选择偏差 (J型分布/朋友圈)、幸存者偏差 (辍学创业神话/怀旧)、分组选拔偏差 (名校效应)、伯克森悖论 (帅哥皆渣男/门槛伪造负相关)。听说故事先问四句话，追踪退场沉默者。",
-            highlights: [
-              "上桌样本不代表真实世界：听说故事先问'谁没来？谁来不了？'",
-              "幸存者偏差：辍学创业成功是极少数，创始人平均 45 岁",
-              "伯克森悖论：设定门槛会伪造两个变量之间的负相关"
-            ],
-            iconKey: "selectionBias"
-          },
-          {
-            num: "40",
-            title: "回归均值：不要大惊小怪，要有点定力",
-            summary: "观测结果 = 真实水平 + 随机运气。回归谬误：把波动当因果，把运气当实力。戴明漏斗实验四规则：过度勤勉的纠偏等于给系统注入额外波动（规则一最稳定）。邓宁-克鲁格效应含统计回归成分。决策定力：遇事缓三分。",
-            highlights: [
-              "回归谬误：表扬后变差、痛骂后变好是统计回归而非管理有效",
-              "戴明漏斗实验：过于勤勉的纠偏是在给系统注入额外波动",
-              "决策定力：一时高不必封神，一时低不必诛心，遇事缓三分"
-            ],
-            iconKey: "regression"
-          },
-          {
-            num: "41",
-            title: "前景理论：让人铤而走险的不是贪婪，而是不甘",
-            summary: "参照点 S 型曲线：损失痛苦是快乐的 2 倍（损失厌恶）。参照点左侧（不甘）让人铤而走险。四大偏误：损失厌恶、现状偏见、禀赋效应、框架效应（救活200 vs 死400）。散户处置效应。主动自由管理参照点与心理账户。",
-            highlights: [
-              "人是守卫参照点的动物：损失痛苦是快乐的 2 倍",
-              "站在参照点左侧（不甘/亏损）让人疯狂冒险",
-              "框架效应：生死攸关决策竟取决于话术表述；高手自由重构参照点"
-            ],
-            iconKey: "prospect"
-          },
-          {
-            num: "43",
-            title: "参考类：当局者迷，旁观者清，你不特殊",
-            summary: "参考类预测 (RCF) 是反自恋装置。规划谬误：现实比最悲观估计还悲观。内部视角看个案自恋，外部视角看分布数据。傅以斌三步法：找结束案例组 → 取基准线 (中位数) → 微调。具体做事内部打气，决策必须外部泼冷水。",
-            highlights: [
-              "规划谬误：悉尼歌剧院/大型工程基建普遍大幅超支超期",
-              "外部视角：旁观者把你当统计样本，而不是故事主角",
-              "做事用内部叙事打气，决策用外部参考类泼冷水"
-            ],
-            iconKey: "referenceClass"
-          },
-          {
-            num: "44",
-            title: "超级预测：给不确定性命名，给自己打分",
-            summary: "狐狸型专家优于刺猬型。超级预测者（良好判断项目）：概率化 + 可检验。费米化拆解云状问题 → 外部参考类打底 → 贝叶斯微调。布里尔分数 (Brier score) 记分。不确定性一旦被拆解命名，就从恐慌变成可求解工程问题。",
-            highlights: [
-              "狐狸型 (接受复杂随时修正) 预测胜过刺猬型 (抱大理论)",
-              "超级预测法：费米化拆解 + 外部基率 + 贝叶斯持续微调",
-              "Name it to tame it：不确定性写成概率，就从恐慌变为工程问题"
-            ],
-            iconKey: "superforecasting"
-          }
-        ]
-      },
-      {
-        name: "5. 落地执行 · 状态与循环",
-        description: "状态杠杆决定怎么用力，OODA 环决定怎么循环迭代。",
-        lectures: [
-          {
-            num: "38",
-            title: "状态杠杆：你不是不努力，你是没做在点子上",
-            summary: "状态杠杆：一步做完后，世界是否对下一步更友好。唐僧扫塔从上往下扫。三种杠杆：前置杠杆 (NASA 设计占15%锁75%成本)、顺序杠杆 (DSM 设计结构矩阵排依赖)、约束杠杆 (TOC 瓶颈理论)。灵魂是贝尔曼动态规划：收益 = 即时回报 + 下一状态价值。",
-            highlights: [
-              "状态杠杆：唐僧扫塔从上往下扫（不可逆进展）",
-              "三杠杆：前置杠杆 (NASA 设计锁定75%成本) + 顺序杠杆 (DSM) + 约束杠杆 (TOC 瓶颈)",
-              "贝尔曼方程：行动不仅看即时回报，更看转移后的未来状态潜在价值"
-            ],
-            iconKey: "leverage"
-          },
-          {
-            num: "45",
-            title: "OODA 环：不是反应快，而是换脑快（模块收官）",
-            summary: "Observe-Orient-Decide-Act。精髓是换脑快，提升地图刷新率。阵眼在 Orient (定向)：定向就是改叙事、重选归纳偏置。Act 是用小注逼现实表态。中途岛海战案例。四句：换脑快 > 反应快；及时改 > 永远对；先下小注 > 求定论；每一步带回情报。",
-            highlights: [
-              "OODA 精髓：不是反应快，而是换脑快（地图刷新率高）",
-              "阵眼在 Orient (定向)：定向就是改叙事、重新选择归纳偏置（呼应 27 讲）",
-              "Act 不是结局，而是用小注/压力测试逼现实表态"
-            ],
-            iconKey: "ooda"
-          }
-        ]
-      },
-      {
-        name: "问答与答疑集锦",
-        lectures: [
-          { num: "030", title: "问答：没有机缘得到使命召唤怎么办？", summary: "体制内自处（老庄/平行的生活/循吏）；使命三特点；AGI 是付费午餐；决策 vs 策略。", highlights: ["使命是秩序输出者", "AGI 偏置即对齐税"], iconKey: "qa" },
-          { num: "036", title: "问答：怎样培养自己找到最佳模型的能力？", summary: "建模靠储备；给孩子的 20 条好先验；系统即笔记；Edge 是独特的知与能。", highlights: ["无客观建模，先想象中介", "系统最明显区分是有无笔记"], iconKey: "qa" },
-          { num: "042", title: "问答：设计结构矩阵和甘特图的区别是什么？", summary: "禁食度与 FMD；DSM 负责结构，甘特图负责节奏；普通变异 vs 特殊变异。", highlights: ["DSM 排依赖结构，甘特图排时间节奏", "求真前提是有反馈"], iconKey: "qa" }
-        ]
-      }
-    ]
-  }
+  shifts: [
+    {
+      badge: '世界觀重塑',
+      title: '從線性穩態 → 重尾複利',
+      desc: '世界不是平均分佈的，極端值主導結果，複利效應塑造命運。',
+      old: '努力就有回報，付出等比換取成果',
+      new: '選對賽道+複利積累，讓冪律為你工作'
+    },
+    {
+      badge: '決策哲學',
+      title: '從確定性思維 → 概率性思維',
+      desc: '所有判斷都是概率分佈，沒有確定的未來，只有可以更新的先驗。',
+      old: '做正確的事，等待確定的回報',
+      new: '設定先驗、持續更新，管理期望值分佈'
+    },
+    {
+      badge: '風險管理',
+      title: '從規避風險 → 設計凸性',
+      desc: '對稱風險是危險的，真正的智慧是讓損失有限、收益無限。',
+      old: '避開風險，保留確定性',
+      new: '用反脆弱和期權設計凸性收益結構'
+    },
+    {
+      badge: '學習方法',
+      title: '從被動接收 → 主動建構',
+      desc: 'ICAP 框架：互動(I)>建構(C)>主動(A)>被動(P)，自我解釋是分水嶺。',
+      old: '反覆閱讀、劃重點、背誦',
+      new: '提取練習、間隔學習、交錯複習、討論互動'
+    },
+    {
+      badge: 'AI 時代策略',
+      title: '從積累顯性知識 → 掌握默會知識',
+      desc: 'AI 已在吃掉顯性知識的外圈，人的護城河是高情境、高例外、高責任的默會能力。',
+      old: '記住更多信息、掌握更多 SOP',
+      new: '搶佔高情境位置、積累真實場景的默會資本'
+    },
+  ]
 };
 
-// Vector SVG Definitions Map
-const SVG_ICONS = {
-  "book-open": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`,
-  "layers": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>`,
-  "cpu": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="15" x2="23" y2="15"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="15" x2="4" y2="15"></line></svg>`,
-  "refresh-cw": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>`,
-  "narrative": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path><path d="M8 7h8"></path><path d="M8 11h6"></path></svg>`,
-  "heavyTail": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="21" x2="21" y2="21"></line><line x1="3" y1="3" x2="3" y2="21"></line><path d="M4 4c2 12 6 16 16 16"></path></svg>`,
-  "agency": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71.79-1.81.79-1.81l-3.79-3.79s-1.1.08-1.79.79z"></path><path d="M12 15l-3-3 8.5-8.5a2.12 2.12 0 0 1 3 3L12 15z"></path></svg>`,
-  "constraint": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`,
-  "qa": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`,
-  "possibility": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 8h.01"></path><path d="M8 8h.01"></path><path d="M12 12h.01"></path><path d="M16 16h.01"></path><path d="M8 16h.01"></path></svg>`,
-  "coreSelf": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`,
-  "powerSeeking": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"></circle><circle cx="6" cy="6" r="3"></circle><path d="M13 6h3a2 2 0 0 1 2 2v7"></path><line x1="6" y1="9" x2="6" y2="21"></line></svg>`,
-  "sdt": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 3z"></path></svg>`,
-  "woop": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>`,
-  "freeEnergy": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h5l2 8 5-16 2 8h6"></path></svg>`,
-  "supplySide": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>`,
-  "compound": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>`,
-  "structuralHole": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>`,
-  "cognitiveLoad": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`,
-  "cognitiveDecoupling": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>`,
-  "identity": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`,
-  "safety": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"></circle><line x1="12" y1="22" x2="12" y2="8"></line><path d="M5 12H2a10 10 0 0 0 20 0h-3"></path></svg>`,
-  "track": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path></svg>`,
-  "field": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="9" y1="3" x2="9" y2="21"></line><line x1="15" y1="3" x2="15" y2="21"></line></svg>`,
-  "exploreExploit": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>`,
-  "resonance": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 10s3-3 6-3 6 3 6 3 3-3 6-3 6 3 6 3"></path><path d="M2 14s3-3 6-3 6 3 6 3 3-3 6-3 6 3 6 3"></path></svg>`,
-  "noFreeLunch": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="3" x2="12" y2="21"></line><path d="M5 9l7-6 7 6"></path><path d="M5 15l7 6 7-6"></path></svg>`,
-  "probability": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10"></path><path d="M12 20V4"></path><path d="M6 20v-6"></path></svg>`,
-  "granularity": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>`,
-  "bayes": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4v-8z"></path><circle cx="8" cy="12" r="2"></circle></svg>`,
-  "voi": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>`,
-  "kelly": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="16" y2="18"></line><path d="M16 10h.01"></path><path d="M12 10h.01"></path><path d="M8 10h.01"></path><path d="M12 14h.01"></path><path d="M8 14h.01"></path><path d="M12 18h.01"></path><path d="M8 18h.01"></path></svg>`,
-  "ergodicity": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>`,
-  "antifragile": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>`,
-  "options": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>`,
-  "leverage": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3v16h16"></path><path d="m5 19 6-6"></path><path d="m11 13 4 4"></path><path d="m15 17 6-6"></path></svg>`,
-  "selectionBias": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>`,
-  "regression": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>`,
-  "prospect": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="4"></line><line x1="4" y1="12" x2="20" y2="12"></line><path d="M4 18c4 0 6-6 8-6s4-6 8-6"></path></svg>`,
-  "referenceClass": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><line x1="7" y1="8" x2="17" y2="8"></line><line x1="7" y1="12" x2="17" y2="12"></line><line x1="7" y1="16" x2="13" y2="16"></line></svg>`,
-  "superforecasting": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>`,
-  "ooda": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6"></path><path d="M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path></svg>`
+// ──────────────────────────────────────────────────────────────────────
+// E01 數據
+// ──────────────────────────────────────────────────────────────────────
+const e01Data = {
+  quote: '世界觀不能自主選擇，只能認識到什麼程度就接受到什麼程度。',
+  svgDiagram: `
+    <svg viewBox="0 0 600 120" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:600px;font-family:inherit;">
+      <defs><marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#f0a500"/></marker></defs>
+      <g transform="translate(10,20)">
+        <rect x="0" y="20" width="80" height="40" rx="8" fill="rgba(240,165,0,0.15)" stroke="#f0a500" stroke-width="1.5"/>
+        <text x="40" y="44" text-anchor="middle" font-size="12" fill="#fef3e2" font-weight="700">01 敘事</text>
+        <line x1="82" y1="40" x2="102" y2="40" stroke="#f0a500" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="104" y="20" width="80" height="40" rx="8" fill="rgba(240,165,0,0.15)" stroke="#f0a500" stroke-width="1.5"/>
+        <text x="144" y="44" text-anchor="middle" font-size="12" fill="#fef3e2" font-weight="700">02 重尾</text>
+        <line x1="186" y1="40" x2="206" y2="40" stroke="#f0a500" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="208" y="20" width="80" height="40" rx="8" fill="rgba(240,165,0,0.15)" stroke="#f0a500" stroke-width="1.5"/>
+        <text x="248" y="44" text-anchor="middle" font-size="12" fill="#fef3e2" font-weight="700">03 能動</text>
+        <line x1="290" y1="40" x2="310" y2="40" stroke="#f0a500" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="312" y="20" width="80" height="40" rx="8" fill="rgba(240,165,0,0.15)" stroke="#f0a500" stroke-width="1.5"/>
+        <text x="352" y="44" text-anchor="middle" font-size="12" fill="#fef3e2" font-weight="700">04 約束</text>
+        <line x1="394" y1="40" x2="414" y2="40" stroke="#f0a500" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="416" y="20" width="80" height="40" rx="8" fill="rgba(240,165,0,0.15)" stroke="#f0a500" stroke-width="1.5"/>
+        <text x="456" y="36" text-anchor="middle" font-size="12" fill="#fef3e2" font-weight="700">06 可能</text>
+        <text x="456" y="52" text-anchor="middle" font-size="12" fill="#fef3e2" font-weight="700">07 內核</text>
+      </g>
+    </svg>`,
+  lectures: [
+    {
+      num: '01', title: '敘事：這個宇宙的第一性原理',
+      summary: '人類不是理性動物而是「敘事動物」。人用故事理解世界，用故事激勵行動。這是宇宙運作最底層的機制。',
+      highlights: [
+        '敘事不是「包裝」，而是人類認知世界的基本方式',
+        '好的敘事能影響決策、行動、甚至社會進程',
+        '辨別自己正在用什麼敘事框架看世界，是元認知的第一步',
+      ]
+    },
+    {
+      num: '02', title: '重尾：世界服從極端值',
+      summary: '現實世界大量現象服從冪律分佈（帕累托分佈），而非正態分佈。少數極端事件貢獻絕大多數影響力。',
+      highlights: [
+        '冪律：1% 的人擁有 50%+ 的財富；少數幾次決策決定人生走向',
+        '在重尾世界裡，平均值沒有意義，要看最大值和分佈形狀',
+        '複利效應：指數增長的起點幾乎看不見，但終點令人震驚',
+      ]
+    },
+    {
+      num: '03', title: '能動：穩態生存的觀念陷阱',
+      summary: '大多數人默認「穩態生存邏輯」——維持現狀、避免損失。能動者主動設計自己的生存方式。',
+      highlights: [
+        '穩態生存：用有限資源維持現狀，規避風險',
+        '能動生存：主動出擊，把不確定性當作槓桿',
+        '從「被選擇」到「主動選擇」，是認知升級的關鍵跨越',
+      ]
+    },
+    {
+      num: '04', title: '約束：先尊重，再行動',
+      summary: '任何系統都有硬約束。最高效的行動策略是先辨認約束、接受約束，再在約束之內尋找自由度。',
+      highlights: [
+        '硬約束不可更改，軟約束可以創造和重新定義',
+        '忽視約束的計劃等於許願，算清楚邊界才能有效行動',
+        '現實是「在約束中設計可行解」，而不是「無限可能」',
+      ]
+    },
+    {
+      num: '06', title: '可能：不確定性是意義的燃料',
+      summary: '不確定性不是需要消除的敵人，而是意義和動力的來源。確定的事沒有驚喜，也沒有意義。',
+      highlights: [
+        '完全確定 = 無聊；完全隨機 = 焦慮；適度不確定 = 意義',
+        '我們在不確定中建立敘事，給自己前進的理由',
+        '可能性本身就是一種資本，要學會持有它',
+      ]
+    },
+    {
+      num: '07', title: '內核：你的三個「自我」',
+      summary: '人有三層自我：表層（習慣行為）、中層（信念與規則）、內核（底層價值觀）。成長本質是重寫內核參數。',
+      highlights: [
+        '改變行為卻不改信念，效果短暫；改變內核，行為自然跟隨',
+        '識別自己在哪一層運作，才能定向升級',
+        '他人的評價作用於表層；讓它觸達內核，才算真正影響你',
+      ]
+    },
+  ]
 };
+
+// ──────────────────────────────────────────────────────────────────────
+// E02 數據
+// ──────────────────────────────────────────────────────────────────────
+const e02Data = {
+  quote: '真正的成長戰略，不是做更多，而是讓複利在正確的方向上工作。',
+  categories: [
+    {
+      title: '🌱 能耐與驅動力（08–15）',
+      lectures: [
+        { num: '08', title: '能耐尋求定理：君子不器', summary: '一個人最應該追求的不是某項技能，而是提升自己各種能力的能力（元能耐）。增加選項，擴展可能性空間。', highlights: ['能耐尋求 > 技能積累', '增加選項，保留最大的未來彈性', '君子不器：不要把自己鎖死在某個工具角色'] },
+        { num: '09', title: '供給側心態：怎樣在正和的世界合作', summary: '需求側思維追逐機會，供給側思維創造機會。降低他人與你合作的摩擦，才能持續吸引資源。', highlights: ['主動提供價值，而不是等待機會', '降低摩擦：讓別人更容易和你協作', '正和遊戲：合作創造增量'] },
+        { num: '10', title: '複利：可積累的優勢', summary: '七種可積累的資本：知識、技能、聲譽、人脈、財富、健康、創意。複利效應在時間軸上放大一切。', highlights: ['七種資本都可以像財務複利一樣積累', '早期積累速度慢，後期加速驚人', '讓每日的微小進步，轉化為長期的巨大優勢'] },
+        { num: '12', title: '自我決定理論：一流人物不可能是痛苦的卷王', summary: '內在動機三要素：自主感、勝任感、歸屬感。動機的質量決定表現，而不是強度。', highlights: ['自主感：我選擇這件事（非被迫）', '勝任感：我能做好這件事', '歸屬感：這件事與我有意義的連接'] },
+        { num: '14', title: '自由能原理：活著就是對齊', summary: '大腦本質上是一個預測機器，不斷最小化「驚訝」（預測誤差）。心流是大腦與環境高度對齊的狀態。', highlights: ['自由能原理：最小化對世界的驚訝', '對齊：讓大腦的預測模型貼近現實', '心流區：預測準確而不無聊，挑戰剛好而不焦慮'] },
+        { num: '15', title: '主動高認知負荷：注意力的 Pro 模式', summary: '主動讓大腦處於高認知負荷狀態，是深度學習和高質量思考的前提。', highlights: ['主動尋求認知摩擦，而不是選擇舒適', '深度工作：排除干擾，長時間保持高負荷', '高認知負荷是成長的槓桿點'] },
+      ]
+    },
+    {
+      title: '🧭 身份與賽道（16–23）',
+      lectures: [
+        { num: '16', title: 'WOOP：從生活的默認設置中覺醒', summary: '心理對比 + 執行意圖（If-Then）。先想象願望，再看障礙，最後設計具體的應對計劃。', highlights: ['W 願望→O 結果→O 障礙→P 計劃', 'If-Then 執行意圖：把計劃變成自動觸發的行為', '比單純正向思考有效得多'] },
+        { num: '17', title: '社交資本、結構洞和搬家', summary: '社交資本的精髓是「結構洞」——佔據連接不同圈子的橋梁位置，獲得信息優勢和合作機會。', highlights: ['結構洞：連接孤立群體的人，掌握信息差', '弱連接的力量：遠距離的朋友往往帶來更多機會', '搬家是提升社交資本最快的方式之一'] },
+        { num: '19', title: '認知解耦：三步調節負面情緒', summary: '認知解耦是把「事件」和「對事件的解讀」分離。重新架構問題，改變情緒的觸發方式。', highlights: ['事件本身不造成情緒，解讀造成情緒', '三步：識別觸發→追問解讀→重新架構', '認知解耦是情緒調節的核心技能'] },
+        { num: '20', title: '身份認同：元認知黑魔法', summary: '身份認同是最強大的行為調節器。你認同什麼，就傾向做什麼。主動設計身份標籤，驅動行為改變。', highlights: ['「我是一個......的人」是最強的自我驅動語', '身份認同先行，行為跟隨', '避免身份固化：在身份認同上保持靈活'] },
+        { num: '21', title: '安全感：人需要有所依靠', summary: '安全感來自內在（能力、價值觀）而非外在（他人認可、財富）。內在安全感是能動行為的基礎。', highlights: ['安全感是能動行動的前提，不是奢侈品', '培養內在安全感：與自己的核心價值觀連接', '外在安全感隨環境波動，內在安全感相對穩定'] },
+        { num: '22', title: '賽道選擇：做天兵天將，還是做孫悟空？', summary: '天兵天將在成熟體系內按規則晉升；孫悟空在野蠻生長的賽道裡自創規則。不同時期，選擇不同。', highlights: ['體制內賽道：規則清晰，競爭激烈，天花板明確', '野生賽道：規則模糊，機會大，需要更多自驅力', '賽道選擇比努力更重要'] },
+        { num: '23', title: '場域：識時務者為俊杰', summary: '場域（field）是一個有自身規則和資本形式的競爭空間。理解場域規則，才能有效配置行動。', highlights: ['不同場域有不同的「硬通貨」', '跨場域思維：把一個場域的資本帶到另一個場域', '識時務：看清場域規則，再決定是否玩這個遊戲'] },
+      ]
+    },
+    {
+      title: '🔭 探索與共鳴（24–26）',
+      lectures: [
+        { num: '25', title: '探索與利用：怎樣繼續做個年輕人', summary: '吉廷斯指數框架：在「探索新選項」和「利用已知最優選項」之間動態平衡。年輕時多探索，成熟時深耕。', highlights: ['探索期：廣撒網，找最優賽道', '利用期：深耕，讓複利工作', '不同人生階段，探索/利用比例應動態調整'] },
+        { num: '26', title: '共鳴：高級生活的秘密', summary: '共鳴是使命感（你想做什麼）與外部世界（世界需要什麼）的交匯。找到共鳴，是意義的最終落腳點。', highlights: ['使命 × 共鳴 = 高級生活', '共鳴不是被動等待，而是主動尋找', '共鳴帶來持續的內在動力，超越外在激勵'] },
+      ]
+    }
+  ]
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// E03 數據
+// ──────────────────────────────────────────────────────────────────────
+const e03Data = {
+  quote: '在根本無法被算盡的世界裡設定立場、看清局面、管理風險、避開幻覺，並把判斷轉化為可持續修正的行動。',
+  tableHtml: `
+    <table class="custom-table">
+      <thead><tr>
+        <th>層級</th><th>核心工具</th><th>關鍵問題</th><th>行動指南</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>偏置設定</td><td>27 無免費午餐</td><td>我的歸納偏置是什麼？</td><td>明確立場，設定強偏置弱偏執</td></tr>
+        <tr><td>概率思維</td><td>28-29 概率/因果</td><td>分佈是什麼形狀？中介在哪？</td><td>選對分佈，理解因果中介</td></tr>
+        <tr><td>信念更新</td><td>31-32 貝葉斯/信息</td><td>新證據如何更新先驗？</td><td>設定先驗，持續貝葉斯更新</td></tr>
+        <tr><td>押注管理</td><td>33-34 凱利/非遍歷</td><td>該下多大的注？</td><td>按凱利公式押注，避免非遍歷陷阱</td></tr>
+        <tr><td>風險設計</td><td>35-37 反脆弱/期權</td><td>如何設計凸性？</td><td>尋求非對稱性，保留期權</td></tr>
+        <tr><td>狀態管理</td><td>38-40 狀態/選擇偏差/均值</td><td>當前狀態是否最優？</td><td>用貝爾曼方程管理狀態，避免選擇偏差</td></tr>
+        <tr><td>行動循環</td><td>43-45 參考類/超級預測/OODA</td><td>如何持續修正？</td><td>找對參考類，校準預測，OODA 換腦</td></tr>
+      </tbody>
+    </table>`,
+  categories: [
+    {
+      title: '① 偏置與概率基礎（27–30）',
+      lectures: [
+        { num: '27', title: '無免費午餐定理：諸行無常，有偏置才有決策', summary: '沒有在所有情況下都最優的通用算法。有效決策必須基於偏置（歸納假設）。設定立場才能行動。', highlights: ['沒有普遍適用的最佳策略，必須設定偏置', '強偏置弱偏執：方向堅定，細節靈活', '自由能原理的決策版本：有預測才有行動'] },
+        { num: '28', title: '概率分佈：到底什麼是決策？', summary: '決策不是選擇「最可能發生的事」，而是選擇期望值分佈最優的選項，並確保自己能活過尾部風險。', highlights: ['決策 = 在概率分佈上下注', '首要原則：確保能活過最壞情況', '理解你面對的是高斯分佈還是冪律分佈'] },
+        { num: '29', title: '顆粒度和因果中介：用模型思考', summary: '理解即壓縮：最小描述長度原則。找到因果中介（中間變量），才能理解和干預系統。', highlights: ['理解 = 找到最簡潔的解釋', '因果中介：改變中介，改變結果', '顆粒度選擇：不同精度的模型適用不同決策'] },
+      ]
+    },
+    {
+      title: '② 信念更新與押注（31–36）',
+      lectures: [
+        { num: '31', title: '貝葉斯先驗：判斷是主觀的，但可以更科學一點', summary: '後驗概率 = 先驗概率 × 似然比。設定先驗，用新證據持續更新，讓信念跟隨現實。', highlights: ['先驗是你對世界的初始猜測', '似然比：新證據對先驗的修正力度', '貝葉斯更新是理性思考的核心引擎'] },
+        { num: '32', title: '信息價值：怎樣區分沙子和金子', summary: '信息的價值在於改變你的行動決策，而不是讓你感覺知道更多。用信息的行動價值（VOI）衡量信息。', highlights: ['信息價值 = 獲得信息後行動的期望值 - 獲得前的期望值', '不改變行動的信息，價值接近於零', '主動尋找改變行動的關鍵信息'] },
+        { num: '33', title: '凱利公式：乘法世界裡的認知變現', summary: '最優押注比例 f* = edge / odds。在有優勢的地方重倉，在無優勢的地方保守。', highlights: ['f* = 優勢比 / 賠率', '過度押注比押注不足更危險（會破產）', '認知優勢是凱利公式的燃料'] },
+        { num: '34', title: '非遍歷性：玩家怕方差，莊家愛方差', summary: '個人決策是時間平均，不是系綜平均。一次毀滅性損失無法被多次成功彌補，必須先保全本金。', highlights: ['時間平均 ≠ 系綜平均（非遍歷性）', '保全本金是優先於追求收益的第一原則', '適合莊家的策略，不一定適合個人玩家'] },
+        { num: '35', title: '脆弱和反脆弱：怎樣利用非對稱風險', summary: '詹森不等式：在凸函數下，不確定性增加收益；在凹函數下，不確定性減少收益。設計凸性，擁抱反脆弱。', highlights: ['脆弱：損失大於收益的不對稱', '反脆弱：收益大於損失的不對稱', '設計凸性：讓下行有限、上行無限'] },
+        { num: '37', title: '期權：保留可選項的特權', summary: '期權是在未來特定時間用特定價格行使某項權利的能力。保留期權意味著保留未來的靈活性。', highlights: ['期權的價值：未來的靈活性本身有價值', '雙向門 vs 單向門：優先選雙向門', '期權不是等待，是主動創造選擇權'] },
+      ]
+    },
+    {
+      title: '③ 狀態管理與行動循環（38–45）',
+      lectures: [
+        { num: '38', title: '狀態杠桿：你不是不努力，你是沒做在點子上', summary: '貝爾曼方程：當前最優行動 = 即時回報 + 折現的未來最優期望。管理狀態，而不只是管理行動。', highlights: ['狀態決定可選的行動空間', '不可逆的進展優先：先做改變狀態的事', '杠桿點：改變狀態的動作，效益遠超普通努力'] },
+        { num: '39', title: '選擇偏差：就算無人說謊，你看到的也不是真實世界', summary: '選擇偏差讓我們系統性地高估成功率、低估失敗率。學會從「看不見的數據」中推斷真相。', highlights: ['生存者偏差：只看見成功者的故事', '截斷數據：消失的數據往往最重要', '主動尋找「反例」和「未被觀察到的」'] },
+        { num: '40', title: '回歸均值：不要大驚小怪，要有點定力', summary: '極端表現傾向於回歸均值。不要對暫時的高峰或低谷反應過度，要看長期趨勢。', highlights: ['回歸均值是統計規律，不是神秘力量', '表揚之後成績下降：回歸均值，非因果', '長期看趨勢，短期看均值回歸'] },
+        { num: '41', title: '前景理論：讓人鋌而走險的不是貪婪，而是不甘', summary: '人對損失的厭惡程度約是對等量收益喜悅的 2 倍。參照點決定你如何感知得失。', highlights: ['損失厭惡：損失痛苦 ≈ 2× 等量收益的喜悅', '參照點效應：同一結果，參照點不同，感受完全不同', '避免「不甘」的損失厭惡驅動衝動決策'] },
+        { num: '43', title: '參考類：當局者迷，旁觀者清，你不特殊', summary: '找到正確的「參考類」（類似情況的基礎比率），避免高估自己的特殊性和計劃謬誤。', highlights: ['外部視角：找同類事件的基礎比率', '計劃謬誤：人普遍高估自己的特殊性', '參考類不是找相似的人，而是找相似的機制'] },
+        { num: '44', title: '超級預測：給不確定性命名，給自己打分', summary: '超級預測者的核心習慣：精確校準概率估計，持續追蹤記錄，快速更新，謙虛處理不確定性。', highlights: ['校準：預測 70% 概率的事，真實發生率應接近 70%', '記錄預測，事後打分，持續改進', '超預測者不追求確定性，擁抱概率語言'] },
+        { num: '45', title: 'OODA 環：不是反應快，而是換腦快', summary: 'OODA = 觀察（Observe）→定向（Orient）→決策（Decide）→行動（Act）。定向是最關鍵的環節。', highlights: ['OODA 的精髓不是速度，而是「定向」（改變敘事框架）', '換腦快 > 反應快：更新心智模型的速度決定競爭力', '對抗中，讓對方的 OODA 循環失效'] },
+      ]
+    }
+  ]
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// E04 數據
+// ──────────────────────────────────────────────────────────────────────
+const e04Data = {
+  quote: '學習是一個可以工程化的微觀過程，而不是一種道德修行。',
+  tableHtml: `
+    <table class="custom-table">
+      <thead><tr>
+        <th>層次</th><th>核心工具</th><th>關鍵洞見</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>① 硬件約束</td><td>46 認知負荷理論</td><td>工作記憶是窄門，圖式是壓縮包</td></tr>
+        <tr><td>② 操作姿勢</td><td>47 ICAP / 49 刻意練習 / 53 可取困難</td><td>I>C>A>P；天賦×練習=乘法；可取困難≠吃苦</td></tr>
+        <tr><td>③ 學什麼</td><td>50 四層知識 / 51 綜合調研 / 52 默會知識</td><td>學習即壓縮；半熟知識是護城河；AI難以複製默會</td></tr>
+        <tr><td>④ 制度角色</td><td>55 學校功能 / 56 自主支持</td><td>小學育人，高中篩選，大學社交；自主支持≠放任</td></tr>
+        <tr><td>⑤ 落地閉環</td><td>57 擁抱與橋接</td><td>拥抱讓知識落地，橋接讓知識出圈</td></tr>
+      </tbody>
+    </table>`,
+  schoolTableHtml: `
+    <table class="custom-table">
+      <thead><tr>
+        <th>學習階段</th><th>人力資本</th><th>信號篩選</th><th>社交資本</th><th>核心任務</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>小學</strong></td><td style="color:#7ecfbe;font-weight:700;">80%</td><td>5%</td><td>15%</td><td>建立基礎操作系統（讀寫、習慣、注意力）</td></tr>
+        <tr><td><strong>初中</strong></td><td>45%</td><td><span style="color:#e8a88a;font-weight:700;">40%</span></td><td>15%</td><td>人力資本與篩選並重，第一道分流關</td></tr>
+        <tr><td><strong>高中</strong></td><td>10%</td><td style="color:#e8a88a;font-weight:700;">80%</td><td>10%</td><td>信號篩選機器，用競技精神完成</td></tr>
+        <tr><td><strong>大學</strong></td><td>30%</td><td>20%</td><td style="color:#7ecfbe;font-weight:700;">50%</td><td>社交資本主場，學習怎麼在複雜組織做事</td></tr>
+      </tbody>
+    </table>`,
+  icapSvg: `
+    <svg viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:560px;font-family:inherit;">
+      <defs><marker id="arr2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="#f0a500"/></marker></defs>
+      <!-- P -->
+      <rect x="10" y="70" width="100" height="60" rx="10" fill="rgba(100,100,120,0.3)" stroke="rgba(200,200,220,0.4)" stroke-width="1.5"/>
+      <text x="60" y="96" text-anchor="middle" font-size="18" fill="#c0c0d0" font-weight="800">P</text>
+      <text x="60" y="116" text-anchor="middle" font-size="11" fill="#8a8ab0">被動接收</text>
+      <!-- Arrow -->
+      <line x1="113" y1="100" x2="130" y2="100" stroke="#f0a500" stroke-width="2" marker-end="url(#arr2)"/>
+      <!-- A -->
+      <rect x="132" y="55" width="100" height="75" rx="10" fill="rgba(180,120,30,0.2)" stroke="rgba(200,140,40,0.5)" stroke-width="1.5"/>
+      <text x="182" y="89" text-anchor="middle" font-size="18" fill="#d4a040" font-weight="800">A</text>
+      <text x="182" y="109" text-anchor="middle" font-size="11" fill="#a87830">主動操作</text>
+      <!-- Arrow -->
+      <line x1="235" y1="100" x2="252" y2="100" stroke="#f0a500" stroke-width="2" marker-end="url(#arr2)"/>
+      <!-- C -->
+      <rect x="254" y="35" width="100" height="95" rx="10" fill="rgba(240,165,0,0.2)" stroke="rgba(240,165,0,0.6)" stroke-width="1.5"/>
+      <text x="304" y="80" text-anchor="middle" font-size="18" fill="#f0b820" font-weight="800">C</text>
+      <text x="304" y="100" text-anchor="middle" font-size="11" fill="#c08010">建構生成</text>
+      <text x="304" y="116" text-anchor="middle" font-size="10" fill="#c08010">自我解釋</text>
+      <!-- Arrow -->
+      <line x1="357" y1="100" x2="374" y2="100" stroke="#f0a500" stroke-width="2" marker-end="url(#arr2)"/>
+      <!-- I -->
+      <rect x="376" y="10" width="110" height="120" rx="10" fill="rgba(61,158,140,0.2)" stroke="rgba(61,158,140,0.7)" stroke-width="2"/>
+      <text x="431" y="68" text-anchor="middle" font-size="22" fill="#3d9e8c" font-weight="800">I</text>
+      <text x="431" y="90" text-anchor="middle" font-size="11" fill="#3d9e8c">互動共創</text>
+      <text x="431" y="108" text-anchor="middle" font-size="10" fill="#3d9e8c">思想乒乓球</text>
+      <!-- Label -->
+      <text x="60" y="155" text-anchor="middle" font-size="10" fill="#666">最低</text>
+      <text x="431" y="155" text-anchor="middle" font-size="10" fill="#3d9e8c">最高效</text>
+      <text x="280" y="185" text-anchor="middle" font-size="12" fill="#c8a87a">認知參與強度 →</text>
+    </svg>`,
+  categories: [
+    {
+      title: '① 硬件約束：學習的物理學（046–048）',
+      lectures: [
+        {
+          num: '046', title: '認知負荷理論：因為文具多，所以是差生',
+          summary: '工作記憶是學習的窄門，普通人最多同時處理 4–7 個信息元素。「圖式」是長期記憶中的壓縮包，優等生學得快是因為壓縮包更多，不是腦子更快。',
+          highlights: [
+            '三種負荷：內在（材料難度）/ 外在（無關干擾）/ 增益（轉化為長期記憶的努力）',
+            '有效教學 = 減外在負荷 + 精心安排圖式進入的節奏',
+            '範例學習（worked-example）> 探索式學習（對新手而言）',
+            'AI 作為 Doer 讓成績下降；作為 Tutor 才能提升學習效果',
+            '教學，就是給大腦編程',
+          ]
+        },
+        {
+          num: '047', title: 'ICAP 框架：最高效的學習方法',
+          summary: 'ICAP = 被動(P) → 主動(A) → 建構(C) → 互動(I)。認知參與強度 I > C > A > P。C 是掌握的分水嶺，I 是最高級的智力活動。',
+          highlights: [
+            'P（被動）：信息如水流過沙子，記憶短暫',
+            'A（主動）：劃重點、記筆記——可能產生「能力錯覺」',
+            'C（建構）：用自己的話解釋、畫心智圖——真正的學習',
+            'I（互動）：思想乒乓球，讓建構接受外部考驗',
+            '現實震驚：德國高校 80 分鐘課堂，C 只有 3.3 分鐘，I 只有 4.5 分鐘',
+          ]
+        },
+        {
+          num: '048', title: '問答：我們能不能加大自己的「內存」？',
+          summary: '工作記憶訓練只提升特定任務，無法遷移，也不能提高智商。練習真的有效，但我們不能不服天賦。',
+          highlights: [
+            '工作記憶與流體智力相關性約 0.5，可測量',
+            '訓練工作記憶只提升做特定任務的水平，迁移能力非常小',
+            '真相：你以為在練硬件，其實練的是軟件（圖式）',
+          ]
+        },
+      ]
+    },
+    {
+      title: '② 操作姿勢：怎麼學（049–053）',
+      lectures: [
+        {
+          num: '049', title: '刻意練習：天賦的作用究竟是什麼？',
+          summary: '刻意練習不是努力重複，而是在學習區精確校準錯誤。天賦與練習是乘法關係，而不是加法。',
+          highlights: [
+            '刻意練習四條件：成熟體系+專業導師、高分辨率目標、即時反饋、待在學習區',
+            '刻意練習是誤差壓縮技術，崇拜苦難只是在重複自己',
+            '天賦 = 傳感器精度 + 神經網絡更新速度 + 興趣敏感度 + 環境選擇能力',
+            '天賦×練習 = 乘法：練習決定你有沒有在更新，天賦決定每次更新的利率',
+            '2025 年 Science 綜述：少年神童和成年後世界級高手，近 90% 不是同一批人',
+          ]
+        },
+        {
+          num: '050', title: '表徵、圖式、心智模型和解釋框架：學習學的是什麼',
+          summary: '知識有四個層級：表徵（認知地圖的最小單位）→ 圖式（模式識別模板）→ 心智模型（會動的圖式，可以推演）→ 解釋框架（某領域的全圖）。學習即壓縮。',
+          highlights: [
+            '表徵：術語表，點亮地圖上的地名',
+            '圖式：模式識別模板，舉一反三的基礎（腦補不是壞事）',
+            '心智模型：有變量、因果、反饋——允許推演',
+            '解釋框架：摸到框架，才開始像學者一樣理解世界',
+            '新讀書問法：「你能從這裡拿走什麼結構？」而不是「這篇講了什麼」',
+          ]
+        },
+        {
+          num: '051', title: '綜合調研：在沒有教科書的地方挖掘真知',
+          summary: '「半熟知識」是護城河：已有研究但尚未廣為人知。調研三級：定位式（1天）→ 結構化（數月）→ 生成式（原創新思想）。',
+          highlights: [
+            '搜索≠總結≠分析≠調研；調研解決的是「所以呢」',
+            '寫作不是思考之後的包裝，寫作即思考',
+            '初級：達到「當前科學理解」；中級：達到內行水平，認識這個領域的人；高級：在材料之間發現新真相',
+            '約翰·斯諾 1854 年霍乱地圖：真相不在任何一份材料裡，真相在材料之間',
+          ]
+        },
+        {
+          num: '052', title: '默會知識：AI 永遠都不可能替代的技能',
+          summary: '默會知識（Tacit Knowledge）只可意會不可言傳，是冰山水面下的部分。不可言傳≠不可訓練，但人的護城河在此。',
+          highlights: [
+            '波兰尼：「我們能知道的比我們能說出來的多」',
+            '四個根本區別：複雜模式識別、強情境依賴、集體共有、身體參與',
+            '學習方式：學徒制 + 到現場內居（indwelling）',
+            '策略：把能寫出來的都寫成杠桿；把精力投放到明天的新默會上',
+            '抢占高情境、高例外、高責任的位置',
+          ]
+        },
+        {
+          num: '053', title: '可取（以及不可取）的困難：把身心調到最適合學習的狀態',
+          summary: '可取困難是讓學生跟內容較勁（內在負荷），不可取困難是讓學生跟疲勞、干擾和威脅較勁（外在負荷）。',
+          highlights: [
+            '最有利學習的情緒配方：安全感打底 + 好奇心點火 + 適度壓力提速',
+            '三個可取困難：提取練習（小測驗）> 時間間隔（分散學習）> 交錯學習（混搭學科）',
+            '鍛煉：20 分鐘中等強度運動 → BDNF 分泌（大腦的化肥）',
+            '睡眠：學習的一道工序，青少年需 8-10 小時，成人至少 7 小時',
+            '手寫 > 打字：本身就是可取困難，激活更廣泛的腦連通模式',
+          ]
+        },
+      ]
+    },
+    {
+      title: '③ 學什麼：問答補充（054）',
+      lectures: [
+        {
+          num: '054', title: '問答：靠自學可以成為高手嗎？',
+          summary: '沒有導師和快速反饋，那就不是刻意練習。金句：「凡是訓練「手」的領域，需要教練；凡是訓練「眼」的領域，適合自學；凡是訓練「心」的領域，必須自學。」',
+          highlights: [
+            '刻意練習作用小的領域（反饋滯後、無標準）更適合自學',
+            '默會知識訓練核心：預測 → 反饋 → 修正',
+            '遮住答案，先猜後看，是加速默會習得的有效方法',
+            'AI 是用語料訓練的，我們是用真實代價磨練的',
+          ]
+        },
+      ]
+    },
+    {
+      title: '④ 制度與角色：誰在教（055–056）',
+      lectures: [
+        {
+          num: '055', title: '人力資本、信號篩選和社交資本：學校教育到底是幹什麼的？',
+          summary: '學校有三種功能：人力資本（教本事）、信號篩選（考試排序）、社交資本（圈子与默會）。不同階段配比戲劇性偏轉。',
+          highlights: [
+            '小學 80% 人力資本，是最接近「教書育人」理想的地方',
+            '高中 80% 信號篩選：高考是排序，不是人格審判',
+            '大學 50% 社交資本：同學就是課程，隱性課程最值錢',
+            '建議：不要把小學過成高二，不要把高考當成人格審判，不要把大學過成高四',
+            '高考改革正確路線：加大難度，而不是降低難度',
+          ]
+        },
+        {
+          num: '056', title: '自主支持：「獻祭式養育」終結者',
+          summary: '自主支持型養育讓孩子把規則變成自己的意志。心理控制（內疚、羞恥）不但有害幸福感，也損害學業。',
+          highlights: [
+            '遺傳率平均 49%，加上「遺傳滋養」，父母可控的育兒方法影響有限',
+            '養育三層跨越：權威型 → 脚手架 → 自主支持',
+            '核心：一個人只有感受到自己是行為「發起者」，才有內在動力',
+            '自主支持 vs 心理控制：前者讓孩子同意規則，後者用操縱強迫服從',
+            '最好的管教，不是讓孩子聽話，而是讓孩子同意',
+          ]
+        },
+      ]
+    },
+    {
+      title: '⑤ 落地閉環：學以致用（057）',
+      lectures: [
+        {
+          num: '057', title: '擁抱和橋接：知識遷移，學以致用',
+          summary: '從「學」到「用」有三道鎖：表徵鎖（學了碎片）、觸發鎖（不會自動激活）、生態鎖（缺乏反饋和練習）。擁抱解表徵鎖，橋接解觸發鎖。',
+          highlights: [
+            '擁抱（Hugging）→ 低路遷移：讓知識一開始就長在將來要用它的土壤里',
+            '橋接（Bridging）→ 高路遷移：從具體場景抽出心智模型，再類比到別的場景',
+            '專家 vs 新手：高手按深層原理分類，新手按表面特征分類',
+            '直接比較兩個不同場景，能讓遷移率提升兩倍',
+            '蘇東坡是極致樣本：壓縮（博觀而約取）+ 擁抱（活在制度、災難、路途中）+ 高路遷移',
+          ]
+        },
+      ]
+    },
+  ]
+};
+
+// ──────────────────────────────────────────────────────────────────────
+// 搜索索引（所有講數）
+// ──────────────────────────────────────────────────────────────────────
+const searchIndex = [
+  // E01
+  { num: '01', title: '敘事：這個宇宙的第一性原理', tab: 'E01', keywords: '敘事 宇宙 第一性原理 故事 驅動' },
+  { num: '02', title: '重尾：世界服從極端值', tab: 'E01', keywords: '重尾 冪律 極端值 複利 帕累托' },
+  { num: '03', title: '能動：穩態生存的觀念陷阱', tab: 'E01', keywords: '能動 穩態 陷阱 觀念 主動' },
+  { num: '04', title: '約束：先尊重，再行動', tab: 'E01', keywords: '約束 硬約束 算賬 行動 邊界' },
+  { num: '05', title: '問答：敘事和講故事的區別', tab: 'E01', keywords: '問答 敘事 故事 造夢' },
+  { num: '06', title: '可能：不確定性是意義的燃料', tab: 'E01', keywords: '可能 不確定性 意義 燃料' },
+  { num: '07', title: '內核：你的三個「自我」', tab: 'E01', keywords: '內核 自我 三層 參數 改寫' },
+  // E02
+  { num: '08', title: '能耐尋求定理：君子不器', tab: 'E02', keywords: '能耐 尋求 君子 不器 元能力 選項' },
+  { num: '09', title: '供給側心態：正和世界合作', tab: 'E02', keywords: '供給側 合作 摩擦 正和 競爭' },
+  { num: '10', title: '複利：可積累的優勢', tab: 'E02', keywords: '複利 積累 七種資本 優勢 指數增長' },
+  { num: '11', title: '問答：為什麼承認錯了那麼難', tab: 'E02', keywords: '問答 承認 錯誤 心理' },
+  { num: '12', title: '自我決定理論：一流人物不痛苦', tab: 'E02', keywords: '自我決定 動機 自主 勝任 歸屬' },
+  { num: '14', title: '自由能原理：活著就是對齊', tab: 'E02', keywords: '自由能 對齊 心流 預測 驚訝' },
+  { num: '15', title: '主動高認知負荷：注意力 Pro 模式', tab: 'E02', keywords: '認知負荷 主動 注意力 深度工作' },
+  { num: '16', title: 'WOOP：從默認設置中覺醒', tab: 'E02', keywords: 'WOOP 心理對比 執行意圖 If-Then' },
+  { num: '17', title: '社交資本、結構洞和搬家', tab: 'E02', keywords: '社交資本 結構洞 弱連接 搬家 網絡' },
+  { num: '19', title: '認知解耦：三步調節負面情緒', tab: 'E02', keywords: '認知解耦 情緒 調節 重新架構' },
+  { num: '20', title: '身份認同：元認知黑魔法', tab: 'E02', keywords: '身份認同 元認知 自我 驅動' },
+  { num: '21', title: '安全感：人需要有所依靠', tab: 'E02', keywords: '安全感 內在 依靠 基礎' },
+  { num: '22', title: '賽道選擇：孫悟空策略', tab: 'E02', keywords: '賽道 孫悟空 天兵 選擇 競爭' },
+  { num: '23', title: '場域：識時務者為俊杰', tab: 'E02', keywords: '場域 規則 資本 競爭空間' },
+  { num: '25', title: '探索與利用：怎樣繼續做個年輕人', tab: 'E02', keywords: '探索 利用 吉廷斯 年輕 平衡' },
+  { num: '26', title: '共鳴：高級生活的秘密', tab: 'E02', keywords: '共鳴 使命 意義 高級生活' },
+  // E03
+  { num: '27', title: '無免費午餐定理：有偏置才有決策', tab: 'E03', keywords: '無免費午餐 偏置 決策 歸納' },
+  { num: '28', title: '概率分佈：到底什麼是決策？', tab: 'E03', keywords: '概率 分佈 決策 期望值' },
+  { num: '29', title: '顆粒度和因果中介：用模型思考', tab: 'E03', keywords: '顆粒度 因果 中介 壓縮 模型' },
+  { num: '31', title: '貝葉斯先驗：判斷可以更科學', tab: 'E03', keywords: '貝葉斯 先驗 後驗 更新 概率' },
+  { num: '32', title: '信息價值：怎樣區分沙子和金子', tab: 'E03', keywords: '信息 價值 VOI 決策 改變行動' },
+  { num: '33', title: '凱利公式：乘法世界裡的認知變現', tab: 'E03', keywords: '凱利 公式 押注 認知 變現 優勢' },
+  { num: '34', title: '非遍歷性：玩家怕方差，莊家愛方差', tab: 'E03', keywords: '非遍歷 方差 時間平均 莊家 玩家' },
+  { num: '35', title: '脆弱和反脆弱：非對稱風險', tab: 'E03', keywords: '反脆弱 詹森不等式 凸性 不對稱' },
+  { num: '37', title: '期權：保留可選項的特權', tab: 'E03', keywords: '期權 可選項 靈活 雙向門' },
+  { num: '38', title: '狀態杠桿：做在點子上', tab: 'E03', keywords: '狀態 杠桿 貝爾曼 不可逆 進展' },
+  { num: '39', title: '選擇偏差：你看到的不是真實世界', tab: 'E03', keywords: '選擇偏差 生存者 截斷數據 反例' },
+  { num: '40', title: '回歸均值：不要大驚小怪', tab: 'E03', keywords: '回歸均值 統計 定力 長期趨勢' },
+  { num: '41', title: '前景理論：鋌而走險是不甘', tab: 'E03', keywords: '前景理論 損失厭惡 參照點 不甘' },
+  { num: '43', title: '參考類：你不特殊', tab: 'E03', keywords: '參考類 外部視角 基礎比率 計劃謬誤' },
+  { num: '44', title: '超級預測：給不確定性命名', tab: 'E03', keywords: '超級預測 校準 概率 記錄 打分' },
+  { num: '45', title: 'OODA 環：換腦快>反應快', tab: 'E03', keywords: 'OODA 觀察 定向 決策 行動 換腦' },
+  // E04
+  { num: '046', title: '認知負荷理論：因為文具多，所以是差生', tab: 'E04', keywords: '認知負荷 工作記憶 圖式 壓縮包 外在負荷' },
+  { num: '047', title: 'ICAP 框架：最高效的學習方法', tab: 'E04', keywords: 'ICAP 被動 主動 建構 互動 自我解釋 學習' },
+  { num: '048', title: '問答：能不能加大自己的內存？', tab: 'E04', keywords: '工作記憶 內存 天賦 練習 遷移' },
+  { num: '049', title: '刻意練習：天賦的作用究竟是什麼？', tab: 'E04', keywords: '刻意練習 天賦 學習區 一萬小時 誤差壓縮' },
+  { num: '050', title: '表徵、圖式、心智模型和解釋框架', tab: 'E04', keywords: '表徵 圖式 心智模型 解釋框架 四層知識 壓縮' },
+  { num: '051', title: '綜合調研：在沒有教科書的地方挖掘真知', tab: 'E04', keywords: '綜合調研 半熟知識 調研 寫作 定位 結構化 生成' },
+  { num: '052', title: '默會知識：AI 永遠都不可能替代的技能', tab: 'E04', keywords: '默會知識 AI 默會 學徒制 內居 具身認知' },
+  { num: '053', title: '可取（以及不可取）的困難', tab: 'E04', keywords: '可取困難 提取練習 間隔學習 交錯學習 睡眠 鍛煉' },
+  { num: '054', title: '問答：靠自學可以成為高手嗎？', tab: 'E04', keywords: '自學 高手 刻意練習 手眼心 默會知識 預測' },
+  { num: '055', title: '人力資本、信號篩選和社交資本', tab: 'E04', keywords: '人力資本 信號篩選 社交資本 學校 教育 高考' },
+  { num: '056', title: '自主支持：獻祭式養育終結者', tab: 'E04', keywords: '自主支持 養育 心理控制 遺傳 脚手架' },
+  { num: '057', title: '擁抱和橋接：知識遷移，學以致用', tab: 'E04', keywords: '擁抱 橋接 遷移 學以致用 惰性知識 蘇東坡' },
+];

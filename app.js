@@ -1,362 +1,368 @@
-// Application Logic for 万维钢《现代思维工具100讲》 Web App
+/* =====================================================================
+   app.js — 萬維鋼《現代思維工具100講》渲染邏輯
+   ===================================================================== */
 
-document.addEventListener('DOMContentLoaded', () => {
-  initTheme();
-  renderOverview();
-  renderE01();
-  renderE02();
-  renderE03();
-  setupNavigation();
-  setupSearch();
-  initMermaid();
+// Mermaid 初始化（溫暖色系主題）
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'base',
+  themeVariables: {
+    primaryColor: '#3a2510',
+    primaryTextColor: '#fef3e2',
+    primaryBorderColor: '#f0a500',
+    lineColor: '#f0a500',
+    secondaryColor: '#241a0e',
+    tertiaryColor: '#1a1208',
+    background: '#1a1208',
+    mainBkg: '#2a1c0c',
+    nodeBorder: '#f0a500',
+    clusterBkg: '#241a0e',
+    titleColor: '#f0c060',
+    edgeLabelBackground: '#1a1208',
+    fontFamily: 'Noto Sans TC, Inter, sans-serif',
+  },
+  flowchart: { useMaxWidth: true, htmlLabels: true }
 });
 
-// Theme Toggle
-function initTheme() {
-  const themeBtn = document.getElementById('btn-theme-toggle');
-  const savedTheme = localStorage.getItem('app-theme') || 'dark';
-  document.documentElement.setAttribute('data-theme', savedTheme);
-
-  if (themeBtn) {
-    themeBtn.addEventListener('click', () => {
-      const currentTheme = document.documentElement.getAttribute('data-theme');
-      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('app-theme', newTheme);
-    });
-  }
+// ──────────────────────────────────────────────────────────────────────
+// 工具函數
+// ──────────────────────────────────────────────────────────────────────
+function svgIcon(name) {
+  const icons = {
+    book: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+    chart: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+    brain: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2a2.5 2.5 0 0 1 5 0"/><path d="M14.5 2a2.5 2.5 0 1 1 4.33 2.5"/><path d="M18 8a4 4 0 0 1 0 8"/><path d="M14.5 22a2.5 2.5 0 0 0 4.33-2.5"/><path d="M9.5 22a2.5 2.5 0 0 1-5 0"/><path d="M6 14a4 4 0 0 1 0-8"/><path d="M9.5 2a2.5 2.5 0 0 0-4.33 2.5"/><path d="M12 12h.01"/></svg>`,
+    link: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+  };
+  return icons[name] || icons.book;
 }
 
-// Helper to get SVG string
-function getIconSvg(iconKey) {
-  return SVG_ICONS[iconKey] || SVG_ICONS['book-open'];
-}
-
-// 1. Render Overview
+// ──────────────────────────────────────────────────────────────────────
+// 渲染：總覽頁面
+// ──────────────────────────────────────────────────────────────────────
 function renderOverview() {
-  const data = APP_DATA.overview;
-  
   // Hero
-  const heroEl = document.getElementById('overview-hero');
-  if (heroEl) {
-    heroEl.innerHTML = `
-      <h1 class="hero-title">${data.title}</h1>
-      <p class="hero-subtitle">${data.subtitle}</p>
-    `;
+  const hero = document.getElementById('overview-hero');
+  if (hero) {
+    hero.innerHTML = `
+      <h1 class="hero-title">${overviewData.heroTitle}</h1>
+      <p class="hero-subtitle">${overviewData.heroSubtitle}</p>`;
   }
 
-  // Stats Grid
-  const statsContainer = document.getElementById('overview-stats');
-  if (statsContainer) {
-    statsContainer.innerHTML = data.stats.map(s => `
+  // Stats
+  const statsGrid = document.getElementById('overview-stats');
+  if (statsGrid) {
+    statsGrid.innerHTML = overviewData.stats.map(s => `
       <div class="stat-card">
-        <div class="stat-icon">${getIconSvg(s.icon)}</div>
+        <div class="stat-icon">${s.icon}</div>
         <div>
-          <div class="stat-val">${s.value}</div>
-          <div class="stat-lbl">${s.label} - ${s.desc}</div>
+          <div class="stat-val">${s.val}</div>
+          <div class="stat-lbl">${s.lbl}</div>
         </div>
-      </div>
-    `).join('');
+      </div>`).join('');
   }
 
-  // Paradigm Shifts
-  const shiftsContainer = document.getElementById('overview-shifts');
-  if (shiftsContainer) {
-    shiftsContainer.innerHTML = data.paradigmShifts.map(shift => `
+  // Module cards
+  const modulesEl = document.getElementById('overview-modules');
+  if (modulesEl) {
+    modulesEl.innerHTML = overviewData.modules.map(m => `
+      <div class="shift-card" style="cursor:pointer;" onclick="switchTab('${m.label}')">
+        <div class="shift-header">
+          <span class="shift-badge">${m.label} · ${m.range}</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
+          <div class="stat-icon" style="color:var(--accent-gold)">${m.icon}</div>
+          <div class="lecture-title">${m.title}</div>
+        </div>
+        <p class="lecture-summary">${m.desc}</p>
+        <ul class="highlights-list">
+          ${m.points.map(p => `<li class="highlight-item">${p}</li>`).join('')}
+        </ul>
+      </div>`).join('');
+  }
+
+  // Shift cards
+  const shiftsEl = document.getElementById('overview-shifts');
+  if (shiftsEl) {
+    shiftsEl.innerHTML = overviewData.shifts.map(s => `
       <div class="shift-card">
         <div class="shift-header">
-          <div style="display:flex; align-items:center; gap:0.5rem;">
-            <div style="width:28px; height:28px; color:var(--accent-indigo)">${getIconSvg(shift.svgIcon)}</div>
-            <h3 style="font-size:1.05rem; font-weight:700;">${shift.title}</h3>
-          </div>
-          <span class="shift-badge">${shift.module}</span>
+          <span class="shift-badge">${s.badge}</span>
         </div>
+        <div class="lecture-title" style="margin-bottom:0.5rem">${s.title}</div>
+        <p class="lecture-summary">${s.desc}</p>
         <div class="shift-vs">
           <div class="vs-box vs-old">
-            <div class="vs-title">❌ 旧思维 / 局部理性</div>
-            <div>${shift.oldMindset}</div>
+            <div class="vs-title">❌ 舊思維</div>
+            ${s.old}
           </div>
           <div class="vs-box vs-new">
-            <div class="vs-title">✨ 新思维 / 能动者</div>
-            <div>${shift.newMindset}</div>
+            <div class="vs-title">✅ 新思維</div>
+            ${s.new}
           </div>
         </div>
-      </div>
-    `).join('');
-  }
-
-  // Module Master Summary Cards
-  const masterContainer = document.getElementById('overview-modules');
-  if (masterContainer) {
-    masterContainer.innerHTML = data.moduleMasterSummary.map(m => `
-      <div class="shift-card" style="border-left: 4px solid var(--accent-indigo); cursor: pointer;" onclick="switchToTab('${m.id}')">
-        <h3 style="font-size:1.15rem; font-weight:700; margin-bottom:0.4rem; color:var(--accent-indigo);">${m.name}</h3>
-        <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:0.75rem;">${m.shortDesc}</p>
-        <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
-          ${m.keyConcepts.map(c => `<span style="font-size:0.75rem; padding:0.2rem 0.5rem; background:rgba(99,102,241,0.12); border-radius:4px; color:var(--text-primary);">${c}</span>`).join('')}
-        </div>
-      </div>
-    `).join('');
+      </div>`).join('');
   }
 }
 
-// Helper for rendering lecture card
-function createLectureCardHtml(lec) {
-  return `
-    <div class="lecture-card" id="lecture-${lec.num}">
-      <div class="lecture-header">
-        <span class="lecture-num">第 ${lec.num} 讲</span>
-        <div style="display:flex; align-items:center; gap:0.5rem; flex:1;">
-          <div style="width:24px; height:24px; color:var(--accent-teal);">${getIconSvg(lec.iconKey)}</div>
-          <h3 class="lecture-title">${lec.title}</h3>
-        </div>
-      </div>
-      <p class="lecture-summary">${lec.summary}</p>
-      <ul class="highlights-list">
-        ${lec.highlights.map(h => `<li class="highlight-item">${h}</li>`).join('')}
-      </ul>
-    </div>
-  `;
-}
-
-// 2. Render E01
+// ──────────────────────────────────────────────────────────────────────
+// 渲染：E01
+// ──────────────────────────────────────────────────────────────────────
 function renderE01() {
-  const data = APP_DATA.e01;
   const container = document.getElementById('e01-content');
   if (!container) return;
 
-  let html = `
-    <div class="quote-box">
-      <strong>E01 核心贯穿命题：</strong> ${data.summaryQuote}
-    </div>
-    
-    <div class="section-header">
-      <h2 class="section-title">逐讲重点摘要 (01～07 讲)</h2>
-    </div>
-    <div class="lectures-list">
-      ${data.lectures.map(lec => createLectureCardHtml(lec)).join('')}
-    </div>
+  let html = `<div class="quote-box">${e01Data.quote}</div>`;
 
-    <div class="section-header" style="margin-top:2.5rem;">
-      <h2 class="section-title">三层「自我」LLM 工作模型 (第 07 讲)</h2>
-    </div>
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th>自我层级</th>
-          <th>定义与机制</th>
-          <th>LLM 大模型类比</th>
-          <th>变量属性</th>
-        </tr>
-      </thead>
-      <tbody>
-        ${data.threeSelvesTable.map(row => `
-          <tr>
-            <td style="font-weight:700; color:var(--accent-teal);">${row.self}</td>
-            <td>${row.def}</td>
-            <td><code>${row.llm}</code></td>
-            <td><span style="padding:0.2rem 0.5rem; background:rgba(99,102,241,0.15); border-radius:4px; font-size:0.8rem;">${row.level}</span></td>
-          </tr>
-        `).join('')}
-      </tbody>
-    </table>
-  `;
+  // SVG flow diagram
+  html += `<div class="svg-wrap">${e01Data.svgDiagram}</div>`;
+
+  // Lecture cards
+  html += e01Data.lectures.map(l => renderLectureCard(l)).join('');
 
   container.innerHTML = html;
 }
 
-// 3. Render E02
+// ──────────────────────────────────────────────────────────────────────
+// 渲染：E02
+// ──────────────────────────────────────────────────────────────────────
 function renderE02() {
-  const data = APP_DATA.e02;
   const container = document.getElementById('e02-content');
   if (!container) return;
 
-  let html = `
-    <div class="quote-box">
-      <strong>E02 核心贯穿命题：</strong> ${data.summaryQuote}
-    </div>
-  `;
+  let html = `<div class="quote-box">${e02Data.quote}</div>`;
 
-  data.categories.forEach(cat => {
-    html += `
-      <div class="category-block">
-        <h2 class="category-title">
-          <span>❖</span> ${cat.name}
-        </h2>
-        <div class="lectures-list">
-          ${cat.lectures.map(lec => createLectureCardHtml(lec)).join('')}
-        </div>
-      </div>
-    `;
-  });
+  html += e02Data.categories.map(cat => `
+    <div class="category-block">
+      <div class="category-title">${cat.title}</div>
+      ${cat.lectures.map(l => renderLectureCard(l)).join('')}
+    </div>`).join('');
 
   container.innerHTML = html;
 }
 
-// 4. Render E03
+// ──────────────────────────────────────────────────────────────────────
+// 渲染：E03
+// ──────────────────────────────────────────────────────────────────────
 function renderE03() {
-  const data = APP_DATA.e03;
   const container = document.getElementById('e03-content');
   if (!container) return;
 
-  let html = `
-    <div class="quote-box">
-      <strong>E03 核心贯穿命题：</strong> ${data.summaryQuote}
-    </div>
-  `;
+  let html = `<div class="quote-box">${e03Data.quote}</div>`;
 
-  data.layers.forEach(layer => {
-    html += `
-      <div class="category-block">
-        <h2 class="category-title" style="color:var(--accent-amber);">
-          <span>✦</span> ${layer.name}
-        </h2>
-        <p style="font-size:0.9rem; color:var(--text-secondary); margin-bottom:1rem;">${layer.description}</p>
-        <div class="lectures-list">
-          ${layer.lectures.map(lec => createLectureCardHtml(lec)).join('')}
-        </div>
-      </div>
-    `;
-  });
+  // Decision framework table
+  html += `
+    <div class="section-header" style="margin-top:0;">
+      <h2 class="section-title">決策工具框架總覽</h2>
+    </div>
+    ${e03Data.tableHtml}`;
+
+  html += e03Data.categories.map(cat => `
+    <div class="category-block">
+      <div class="category-title">${cat.title}</div>
+      ${cat.lectures.map(l => renderLectureCard(l)).join('')}
+    </div>`).join('');
 
   container.innerHTML = html;
 }
 
-// Navigation Tab Switcher
-function setupNavigation() {
-  const navItems = document.querySelectorAll('.nav-item');
-  navItems.forEach(item => {
-    item.addEventListener('click', () => {
-      const tabId = item.getAttribute('data-tab');
-      switchToTab(tabId);
-    });
-  });
+// ──────────────────────────────────────────────────────────────────────
+// 渲染：E04（學習教育）
+// ──────────────────────────────────────────────────────────────────────
+function renderE04() {
+  const container = document.getElementById('e04-content');
+  if (!container) return;
+
+  let html = `<div class="quote-box">${e04Data.quote}</div>`;
+
+  // Module overview table
+  html += `
+    <div class="section-header" style="margin-top:0;">
+      <h2 class="section-title">E04 模塊五層骨架總覽</h2>
+    </div>
+    ${e04Data.tableHtml}`;
+
+  // ICAP SVG
+  html += `
+    <div class="section-header" style="margin-top:2rem;">
+      <h2 class="section-title">ICAP 學習參與強度梯級圖</h2>
+    </div>
+    <div class="svg-wrap">${e04Data.icapSvg}</div>`;
+
+  // School function table
+  html += `
+    <div class="section-header" style="margin-top:2rem;">
+      <h2 class="section-title">學校三功能×各階段配比</h2>
+    </div>
+    ${e04Data.schoolTableHtml}`;
+
+  // Category lecture cards
+  html += e04Data.categories.map(cat => `
+    <div class="category-block">
+      <div class="category-title">${cat.title}</div>
+      ${cat.lectures.map(l => renderLectureCard(l)).join('')}
+    </div>`).join('');
+
+  container.innerHTML = html;
 }
 
-function switchToTab(tabId) {
-  // nav item active state
-  document.querySelectorAll('.nav-item').forEach(el => {
-    if (el.getAttribute('data-tab') === tabId) {
-      el.classList.add('active');
-    } else {
-      el.classList.remove('active');
-    }
+// ──────────────────────────────────────────────────────────────────────
+// 通用：渲染講數卡片
+// ──────────────────────────────────────────────────────────────────────
+function renderLectureCard(l) {
+  return `
+    <div class="lecture-card">
+      <div class="lecture-header">
+        <span class="lecture-num">第 ${l.num} 講</span>
+        <div class="lecture-title">${l.title}</div>
+      </div>
+      <p class="lecture-summary">${l.summary}</p>
+      <ul class="highlights-list">
+        ${l.highlights.map(h => `<li class="highlight-item">${h}</li>`).join('')}
+      </ul>
+    </div>`;
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// Tab 切換
+// ──────────────────────────────────────────────────────────────────────
+const TAB_MAP = {
+  overview: 'tab-overview',
+  E01: 'tab-e01',
+  E02: 'tab-e02',
+  E03: 'tab-e03',
+  E04: 'tab-e04',
+};
+
+let renderedTabs = new Set();
+
+function switchTab(tabKey) {
+  // Hide all
+  Object.values(TAB_MAP).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('active');
   });
 
-  // tab content active state
-  document.querySelectorAll('.tab-content').forEach(content => {
-    if (content.id === `tab-${tabId.toLowerCase()}`) {
-      content.classList.add('active');
-    } else {
-      content.classList.remove('active');
-    }
-  });
+  // Remove active from all nav items
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+  // Show selected
+  const target = document.getElementById(TAB_MAP[tabKey]);
+  if (target) target.classList.add('active');
+
+  // Highlight nav
+  const navEl = document.querySelector(`[data-tab="${tabKey}"]`);
+  if (navEl) navEl.classList.add('active');
+
+  // Render content if not already done
+  if (!renderedTabs.has(tabKey)) {
+    renderedTabs.add(tabKey);
+    if (tabKey === 'overview') renderOverview();
+    else if (tabKey === 'E01') renderE01();
+    else if (tabKey === 'E02') renderE02();
+    else if (tabKey === 'E03') renderE03();
+    else if (tabKey === 'E04') renderE04();
+
+    // Re-run mermaid on new content
+    setTimeout(() => {
+      try { mermaid.run(); } catch (e) { /* ignore */ }
+    }, 100);
+  }
 
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// Global Search
-function setupSearch() {
-  const searchBtn = document.getElementById('btn-search-trigger');
-  const modal = document.getElementById('search-modal');
-  const searchInput = document.getElementById('search-input');
-  const resultsContainer = document.getElementById('search-results');
+// ──────────────────────────────────────────────────────────────────────
+// 搜索 Modal
+// ──────────────────────────────────────────────────────────────────────
+const searchModal = document.getElementById('search-modal');
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
 
-  if (!searchBtn || !modal || !searchInput) return;
+function openSearch() {
+  searchModal.classList.add('active');
+  setTimeout(() => searchInput.focus(), 50);
+}
 
-  function openSearch() {
-    modal.classList.add('active');
-    searchInput.focus();
+function closeSearch() {
+  searchModal.classList.remove('active');
+  searchInput.value = '';
+  searchResults.innerHTML = '';
+}
+
+document.getElementById('btn-search-trigger').addEventListener('click', openSearch);
+
+searchModal.addEventListener('click', e => {
+  if (e.target === searchModal) closeSearch();
+});
+
+document.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    openSearch();
+  }
+  if (e.key === 'Escape') closeSearch();
+});
+
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.trim().toLowerCase();
+  if (!q) { searchResults.innerHTML = ''; return; }
+
+  const results = searchIndex.filter(item =>
+    item.num.includes(q) ||
+    item.title.toLowerCase().includes(q) ||
+    item.keywords.toLowerCase().includes(q)
+  ).slice(0, 10);
+
+  if (!results.length) {
+    searchResults.innerHTML = `<div style="color:var(--text-muted);padding:1rem;text-align:center;">沒有找到相關內容</div>`;
+    return;
   }
 
-  function closeSearch() {
-    modal.classList.remove('active');
-    searchInput.value = '';
-    resultsContainer.innerHTML = '';
-  }
-
-  searchBtn.addEventListener('click', openSearch);
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeSearch();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-      e.preventDefault();
-      openSearch();
-    } else if (e.key === 'Escape') {
-      closeSearch();
-    }
-  });
-
-  searchInput.addEventListener('input', () => {
-    const query = searchInput.value.trim().toLowerCase();
-    if (!query) {
-      resultsContainer.innerHTML = '';
-      return;
-    }
-
-    const matches = [];
-
-    // Flatten all lectures
-    const allLectures = [
-      ...APP_DATA.e01.lectures.map(l => ({ ...l, tab: 'E01' })),
-      ...APP_DATA.e02.categories.flatMap(c => c.lectures.map(l => ({ ...l, tab: 'E02' }))),
-      ...APP_DATA.e03.layers.flatMap(l => l.lectures.map(lec => ({ ...lec, tab: 'E03' })))
-    ];
-
-    allLectures.forEach(lec => {
-      const matchInNum = lec.num.includes(query);
-      const matchInTitle = lec.title.toLowerCase().includes(query);
-      const matchInSummary = lec.summary.toLowerCase().includes(query);
-      const matchInHighlights = lec.highlights && lec.highlights.some(h => h.toLowerCase().includes(query));
-
-      if (matchInNum || matchInTitle || matchInSummary || matchInHighlights) {
-        matches.push(lec);
-      }
-    });
-
-    if (matches.length === 0) {
-      resultsContainer.innerHTML = `<div style="padding:1rem; text-align:center; color:var(--text-muted);">未找到相关讲数或内容</div>`;
-      return;
-    }
-
-    resultsContainer.innerHTML = matches.map(m => `
-      <div class="search-result-item" onclick="jumpToLecture('${m.tab}', '${m.num}')">
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.3rem;">
-          <span style="font-weight:700; color:var(--accent-indigo);">第 ${m.num} 讲 ${m.title}</span>
-          <span class="shift-badge">${m.tab}</span>
-        </div>
-        <div style="font-size:0.85rem; color:var(--text-secondary);">${m.summary.substring(0, 80)}...</div>
+  searchResults.innerHTML = results.map(r => `
+    <div class="search-result-item" onclick="switchTab('${r.tab}');closeSearch();">
+      <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.3rem;">
+        <span class="lecture-num" style="padding:0.2rem 0.5rem;font-size:0.78rem;">第 ${r.num} 講</span>
+        <span class="tag">${r.tab}</span>
       </div>
-    `).join('');
+      <div style="font-weight:600;font-size:0.93rem;color:var(--text-primary);">${r.title}</div>
+    </div>`).join('');
+});
+
+// ──────────────────────────────────────────────────────────────────────
+// 主題切換
+// ──────────────────────────────────────────────────────────────────────
+const themeBtn = document.getElementById('btn-theme-toggle');
+themeBtn.addEventListener('click', () => {
+  const html = document.documentElement;
+  const isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+});
+
+// 讀取儲存的主題
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+// ──────────────────────────────────────────────────────────────────────
+// 導航欄點擊事件綁定
+// ──────────────────────────────────────────────────────────────────────
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    const tab = item.getAttribute('data-tab');
+    if (tab) switchTab(tab);
   });
-}
+});
 
-function jumpToLecture(tabId, num) {
-  const modal = document.getElementById('search-modal');
-  if (modal) modal.classList.remove('active');
+// ──────────────────────────────────────────────────────────────────────
+// 初始化
+// ──────────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  renderOverview();
+  renderedTabs.add('overview');
 
-  switchToTab(tabId);
-
+  // Init Mermaid for pre-existing charts in HTML
   setTimeout(() => {
-    const el = document.getElementById(`lecture-${num}`);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      el.style.border = '2px solid var(--accent-indigo)';
-      setTimeout(() => { el.style.border = ''; }, 2000);
-    }
+    try { mermaid.run(); } catch (e) { /* ignore */ }
   }, 200);
-}
-
-// Mermaid init
-function initMermaid() {
-  if (window.mermaid) {
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: 'dark',
-      securityLevel: 'loose'
-    });
-  }
-}
+});
