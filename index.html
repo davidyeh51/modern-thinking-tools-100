@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>万维钢·现代思维工具100讲 | 01-45讲全景思维看板</title>
+  <meta name="description" content="包含 E01 基本世界观、E02 个人成长战略、E03 决策与判断三大核心板块的互动式全景可视化看板。">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Mermaid.js for interactive flowcharts -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="#" class="brand">
+      <div class="brand-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+      </div>
+      <span>现代思维工具 100 讲</span>
+    </a>
+
+    <ul class="nav-links">
+      <li class="nav-item active" data-tab="overview">總覽</li>
+      <li class="nav-item" data-tab="E01">E01 基本世界觀</li>
+      <li class="nav-item" data-tab="E02">E02 成長戰略</li>
+      <li class="nav-item" data-tab="E03">E03 決策判斷</li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="btn-search" id="btn-search-trigger">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span>搜尋讲数 (Ctrl+K)</span>
+      </button>
+
+      <button class="btn-icon" id="btn-theme-toggle" title="切換明/暗主題">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Tab 1: Overview -->
+    <section class="tab-content active" id="tab-overview">
+      <div class="hero" id="overview-hero"></div>
+
+      <!-- Stats Grid -->
+      <div class="stats-grid" id="overview-stats"></div>
+
+      <!-- Module Summary Cards -->
+      <div class="section-header">
+        <h2 class="section-title">三大核心模組快速導覽</h2>
+      </div>
+      <div class="cards-grid" id="overview-modules"></div>
+
+      <!-- Paradigm Shift Cards -->
+      <div class="section-header">
+        <h2 class="section-title">五大核心思維範式轉變</h2>
+      </div>
+      <div class="cards-grid" id="overview-shifts"></div>
+
+      <!-- Master Connection Flowchart -->
+      <div class="section-header">
+        <h2 class="section-title">全景跨模組聯動結構圖</h2>
+      </div>
+      <div class="mermaid-box">
+        <pre class="mermaid">
+flowchart TD
+    subgraph E01["E01 基本世界观 (01-07)"]
+        A1["01 叙事<br/>宇宙第一性原理"] --> A2["02 重尾<br/>幂律与极端值"]
+        A2 --> A3["03 能动<br/>打破稳态生存陷阱"]
+        A3 --> A4["04 约束<br/>硬约束与算账"]
+        A4 --> A6["06 可能<br/>不确定性是意义燃料"]
+        A6 --> A7["07 内核<br/>三层自我·改写参数"]
+    end
+
+    subgraph E02["E02 成长战略 (08-26)"]
+        B1["08 能耐寻求<br/>君子不器·增加选项"]
+        B2["14 自由能原理<br/>活着=对齐·心流区"]
+        B3["10 复利 & 17 结构洞<br/>可积累资本·占据位置"]
+        B4["26 共鸣<br/>使命 × 共鸣 = 高级生活"]
+    end
+
+    subgraph E03["E03 决策判断 (27-45)"]
+        C1["27 无免费午餐<br/>设定归纳偏置"]
+        C2["31 贝叶斯 & 33 凯利<br/>更新先验·认知变现"]
+        C3["35 反脆弱 & 37 期权<br/>詹森不等式·双向门"]
+        C4["38 状态杠杆 & 45 OODA<br/>贝尔曼方程·定向换脑"]
+    end
+
+    A7 -->|"内核参数更新<br/>驱动能动探索"| B1
+    B2 -.->|"深层理论地基"| B1
+    B3 -->|"资源与位置准备"| C2
+    C1 -->|"发愿设定偏置"| C2
+    C2 -->|"管理仓位与风险"| C3
+    C3 -->|"状态递进与循环"| C4
+    C4 -.->|"OODA 定向<br/>重选归纳偏置"| C1
+    B4 -.->|"终极意义落脚"| C4
+        </pre>
+      </div>
+    </section>
+
+    <!-- Tab 2: E01 -->
+    <section class="tab-content" id="tab-e01">
+      <div class="hero">
+        <h1 class="hero-title">E01 基本世界觀（第 01～07 講）</h1>
+        <p class="hero-subtitle">世界觀不能自主選擇，只能認識到什麼程度就接受到什麼程度</p>
+      </div>
+      <div id="e01-content"></div>
+
+      <div class="section-header" style="margin-top:2.5rem;">
+        <h2 class="section-title">E01 关联结构图</h2>
+      </div>
+      <div class="mermaid-box">
+        <pre class="mermaid">
+flowchart TD
+    A["01 叙事<br/>宇宙第一性原理：<br/>世界通过叙事被理解和驱动"] --> B["02 重尾<br/>叙事之下的世界真相：<br/>不均匀、服从极端值/复利"]
+    B --> C["03 能动<br/>为什么多数人认不清02：<br/>旧叙事(稳态生存逻辑)困住了人"]
+    C --> D["04 约束<br/>破除旧叙事后，新叙事<br/>仍须尊重硬约束，不能变成许愿"]
+    D --> F["06 可能<br/>硬约束之内依然存在的<br/>不确定性，是叙事与意义的燃料"]
+    F --> G["07 内核<br/>三层自我，成长=改写内核参数"]
+    G -.-> A
+        </pre>
+      </div>
+    </section>
+
+    <!-- Tab 3: E02 -->
+    <section class="tab-content" id="tab-e02">
+      <div class="hero">
+        <h1 class="hero-title">E02 模塊一：成長戰略（第 08～26 講）</h1>
+        <p class="hero-subtitle">回答一個人該如何主動地把自己活成一個能持續變強、又不被異化的能動者</p>
+      </div>
+      <div id="e02-content"></div>
+
+      <div class="section-header" style="margin-top:2.5rem;">
+        <h2 class="section-title">E02 关联结构图</h2>
+      </div>
+      <div class="mermaid-box">
+        <pre class="mermaid">
+flowchart TD
+    L8["08 能耐寻求定理<br/>增加选项/赋能"] --> L12["12 自我决定理论<br/>动机质量>强度"]
+    L12 --> L16["16 WOOP<br/>If-Then 执行意图"]
+    L14["14 自由能原理<br/>最小化惊讶·对齐"] -.-> L12
+    L9["09 供给侧心态<br/>降低摩擦"] --> L10["10 复利<br/>七种资本"]
+    L10 --> L17["17 社交资本/结构洞"]
+    L20["20 身份认同<br/>驾驭身份"] --> L22["22 赛道选择<br/>孙悟空 vs 天兵天将"]
+    L22 --> L25["25 探索与利用<br/>吉廷斯指数"]
+    L25 --> L26["26 共鸣<br/>使命 × 共鸣"]
+        </pre>
+      </div>
+    </section>
+
+    <!-- Tab 4: E03 -->
+    <section class="tab-content" id="tab-e03">
+      <div class="hero">
+        <h1 class="hero-title">E03 模塊二：決策與判斷（第 27～045 講）</h1>
+        <p class="hero-subtitle">在根本無法被算盡的世界裡設定立場、看清局面、管理風險、避開幻覺，並把判斷轉化為可持續修正的行動</p>
+      </div>
+      <div id="e03-content"></div>
+
+      <div class="section-header" style="margin-top:2.5rem;">
+        <h2 class="section-title">E03 五层骨架关联图</h2>
+      </div>
+      <div class="mermaid-box">
+        <pre class="mermaid">
+flowchart TD
+    L27["27 无免费午餐<br/>强偏置、弱偏执"] --> L28["28 概率分布<br/>选概率分布·首要指望可活"]
+    L28 --> L29["29 颗粒度/因果中介<br/>理解即压缩·盯中介"]
+    L29 --> L31["31 贝叶斯先验<br/>后验=先验+证据更新"]
+    L31 --> L33["33 凯利公式<br/>f* = edge / odds"]
+    L33 --> L35["35 反脆弱<br/>詹森不等式·凸性收益"]
+    L35 --> L37["37 期权<br/>专有进入权·双向门"]
+    L37 --> L38["38 状态杠杆<br/>贝尔曼方程·不可逆进展"]
+    L38 --> L45["45 OODA 环<br/>换脑快 > 反应快·定向改叙事"]
+    L45 -.-> L27
+        </pre>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Search Modal -->
+  <div class="modal-overlay" id="search-modal">
+    <div class="modal-body">
+      <div class="search-input-wrapper">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" class="search-input" id="search-input" placeholder="输入讲数（如 01, 28, 45）或关键字（如 贝叶斯, OODA, 自由能）..." />
+      </div>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
