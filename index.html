@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>萬維鋼·現代思維工具100講 | 全景思維看板</title>
-  <meta name="description" content="涵蓋 E01 基本世界觀、E02 成長戰略、E03 決策判斷、E04 學習教育四大核心模組的互動式全景可視化看板。">
+  <title>大衛人生 · 個人成長與思維工具導航門戶 | 萬維鋼·現代思維工具 100 講</title>
+  <meta name="description" content="大腦知識庫與個人成長認知門戶：收錄 A2.2.1 思維框架（萬維鋼 100 講全 9 大模組 / 120 講）、預備擴充 A2.2.2 超級個體、A2.2.3 系統思考、A2.2.4 心理學，支援雙軌認知與 16:9 全景沉浸式簡報投影。">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="styles.css?v=20260728">
+  <link rel="stylesheet" href="styles.css?v=20261006">
 
   <!-- Mermaid.js for interactive flowcharts -->
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
@@ -21,27 +21,43 @@
 
   <!-- Navigation Bar -->
   <nav class="navbar">
-    <a href="#" class="brand">
+    <a href="#" class="brand" onclick="switchTab('overview')">
       <div class="brand-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
       </div>
-      <span>現代思維工具 100 講</span>
+      <span>大衛人生 · 思維工具門戶</span>
     </a>
 
+    <!-- Nav Links (Scrollable on small screens) -->
     <ul class="nav-links" id="nav-links">
       <li class="nav-item active" data-tab="overview" id="nav-overview">總覽</li>
-      <li class="nav-item" data-tab="E01" id="nav-e01">E01 基本世界觀</li>
+      <li class="nav-item" data-tab="registry" id="nav-registry">🧭 擴充體系</li>
+      <li class="nav-item" data-tab="E01" id="nav-e01">E01 世界觀</li>
       <li class="nav-item" data-tab="E02" id="nav-e02">E02 成長戰略</li>
       <li class="nav-item" data-tab="E03" id="nav-e03">E03 決策判斷</li>
       <li class="nav-item" data-tab="E04" id="nav-e04">E04 學習教育</li>
+      <li class="nav-item" data-tab="E05" id="nav-e05">E05 賺錢邏輯</li>
+      <li class="nav-item" data-tab="E06" id="nav-e06">E06 參與者</li>
+      <li class="nav-item" data-tab="E07" id="nav-e07">E07 領導者</li>
+      <li class="nav-item" data-tab="E08" id="nav-e08">E08 演化者</li>
+      <li class="nav-item" data-tab="E09" id="nav-e09">E09 高觀點</li>
     </ul>
 
+    <!-- Nav Actions -->
     <div class="nav-actions">
-      <button class="btn-search" id="btn-search-trigger">
+      <!-- Direct Slide Presentation Launch Button -->
+      <a href="slides.html" class="btn-launch-slides" title="進入 16:9 劇院級簡報播放器">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <span>全景簡報放映</span>
+      </a>
+
+      <!-- Search Trigger Button -->
+      <button class="btn-search" id="btn-search-trigger" title="搜尋思維工具 (Ctrl+K)">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         <span>搜尋（Ctrl+K）</span>
       </button>
 
+      <!-- Theme Toggle Button -->
       <button class="btn-icon" id="btn-theme-toggle" title="切換明/暗主題">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
       </button>
@@ -51,220 +67,176 @@
   <!-- Main Container -->
   <main class="container">
 
-    <!-- Tab 1: Overview -->
+    <!-- Tab: Overview -->
     <section class="tab-content active" id="tab-overview">
-      <div class="hero" id="overview-hero"></div>
+      <div class="hero" id="overview-hero">
+        <!-- Rendered by app.js -->
+      </div>
 
       <!-- Stats Grid -->
       <div class="stats-grid" id="overview-stats"></div>
 
       <!-- Module Summary Cards -->
       <div class="section-header">
-        <h2 class="section-title">四大核心模組快速導覽</h2>
+        <h2 class="section-title">九大核心思維模組導覽</h2>
+        <a href="slides.html" class="section-link">🚀 播放全部 120 講簡報 ➜</a>
       </div>
       <div class="cards-grid" id="overview-modules"></div>
 
       <!-- Paradigm Shift Cards -->
       <div class="section-header">
-        <h2 class="section-title">五大核心思維範式轉變</h2>
+        <h2 class="section-title">六大核心思維範式轉變</h2>
       </div>
       <div class="cards-grid" id="overview-shifts"></div>
 
       <!-- Master Connection Flowchart -->
       <div class="section-header">
-        <h2 class="section-title">全景跨模組聯動結構圖</h2>
+        <h2 class="section-title">全景跨模組概念聯動圖譜</h2>
       </div>
       <div class="mermaid-box">
         <pre class="mermaid">
 flowchart TD
-    subgraph E01["E01 基本世界觀 (01-07)"]
-        A1["01 敘事<br/>宇宙第一性原理"] --> A2["02 重尾<br/>冪律與極端值"]
-        A2 --> A3["03 能動<br/>打破穩態生存陷阱"]
-        A3 --> A4["04 約束<br/>硬約束與算賬"]
-        A4 --> A6["06 可能<br/>不確定性是意義燃料"]
-        A6 --> A7["07 內核<br/>三層自我·改寫參數"]
+    subgraph E01["E01 基本世界觀 (001-007)"]
+        A1["01 敘事 (宇宙第一性原理)"] --> A2["02 重尾 (極端值主導)"]
+        A2 --> A3["03 能動 (打破穩態陷阱)"]
+        A3 --> A4["04 約束 (尊重硬約束)"]
+        A4 --> A7["07 三個自我 (進程/介面/內核)"]
     end
 
-    subgraph E02["E02 成長戰略 (08-26)"]
-        B1["08 能耐尋求<br/>君子不器·增加選項"]
-        B2["14 自由能原理<br/>活著=對齊·心流區"]
-        B3["10 複利 & 17 結構洞<br/>可積累資本·佔據位置"]
-        B4["26 共鳴<br/>使命 × 共鳴 = 高級生活"]
+    subgraph E02["E02 成長戰略 (008-026)"]
+        B1["08 能耐尋求 (增加未來選項)"] --> B2["10 複利 (七大可累積資本)"]
+        B2 --> B3["14 自由能 (最小化驚訝預測)"]
+        B3 --> B4["17 結構洞 (跨界社交資本)"]
+        B4 --> B5["22 賽道選擇 (突破天花板)"]
+        B5 --> B6["26 共鳴 (使命驅動)"]
     end
 
-    subgraph E03["E03 決策判斷 (27-45)"]
-        C1["27 無免費午餐<br/>設定歸納偏置"]
-        C2["31 貝葉斯 & 33 凱利<br/>更新先驗·認知變現"]
-        C3["35 反脆弱 & 37 期權<br/>詹森不等式·雙向門"]
-        C4["38 狀態槓桿 & 45 OODA<br/>貝爾曼方程·定向換腦"]
+    subgraph E03["E03 決策判斷 (027-045)"]
+        C1["27 無免費午餐 (押注結構偏置)"] --> C2["31 貝葉斯 (先驗更新)"]
+        C2 --> C3["33 凱利公式 (乘法認知變現)"]
+        C3 --> C4["35 反脆弱 (非對稱凸性)"]
+        C4 --> C5["45 OODA 環 (極速定向換腦)"]
     end
 
-    subgraph E04["E04 學習教育 (46-57)"]
-        D1["46 認知負荷<br/>硬體約束·圖式=壓縮包"]
-        D2["47 ICAP<br/>I > C > A > P 階梯"]
-        D3["50 四層知識<br/>表徵→圖式→心智模型→解釋框架"]
-        D4["57 擁抱與橋接<br/>知識遷移·學以致用"]
+    subgraph E04["E04 學習教育 (046-057)"]
+        D1["46 認知負荷 (圖式壓縮包)"] --> D2["47 ICAP 框架 (主動建構)"]
+        D2 --> D3["49 刻意練習 (乘法天賦)"]
+        D3 --> D4["52 默會知識 (AI 時代護城河)"]
+        D4 --> D5["57 擁抱與橋接 (學以致用)"]
     end
 
-    A7 -->|"內核參數更新<br/>驅動能動探索"| B1
-    B2 -.->|"深層理論地基"| B1
-    B3 -->|"資源與位置準備"| C2
-    C1 -->|"發願設定偏置"| C2
-    C2 -->|"管理倉位與風險"| C3
-    C3 -->|"狀態遞進與循環"| C4
-    C4 -.->|"OODA 定向<br/>重選歸納偏置"| C1
-    B4 -.->|"終極意義落腳"| C4
-    C4 -->|"決策後需要學習<br/>才能持續迭代"| D1
-    D4 -.->|"學以致用<br/>閉環回到行動"| C4
+    subgraph E05["E05 賺錢邏輯 (058-069)"]
+        E1["58 經濟租 (必經隘口收費橋)"] --> E2["59 阿爾法 (不可替代優勢)"]
+        E2 --> E3["61 商業槓桿 (成果放大百萬倍)"]
+        E3 --> E4["64 沃德利地圖 (價值鏈定位)"]
+        E4 --> E5["68 平台生態 (雙邊網路效應)"]
+    end
+
+    subgraph E06["E06 參與者 (070-086)"]
+        F1["70 地位 (社會參與第一性原理)"] --> F2["71 禮與互動協議"]
+        F2 --> F3["73 激勵相容 (利益自然一致)"]
+        F3 --> F4["74 檸檬市場 (驗證機制破逆向選擇)"]
+        F4 --> F5["85 摩洛克 (破除內卷囚徒困境)"]
+    end
+
+    subgraph E07["E07 領導者 (087-098)"]
+        G1["87 剩餘判斷權 (不確定下誰說了算)"] --> G2["88 組織資本 (1+1>2 系統)"]
+        G2 --> G3["92 古德哈特定律 (防範指標暴政)"]
+        G3 --> G4["93 指揮官意圖 (管目的非管動作)"]
+        G4 --> G5["98 認領與授權 (從能領導到是領導)"]
+    end
+
+    subgraph E08["E08 演化者 (099-108)"]
+        H1["99 生成 (因你而生不靠你而活)"] --> H2["100 對稱性破缺 (冷卻的偶然)"]
+        H2 --> H3["101 鄰近可能 (邊緣湧現新組合)"]
+        H3 --> H4["104 自組織臨界 (恰到好處的活潑)"]
+        H4 --> H5["107 適應性循環 (繁榮危機再生)"]
+    end
+
+    subgraph E09["E09 高觀點 (109-120)"]
+        I1["109 零階道理 (給真理分配表決權)"] --> I2["110 目標函數 (宇宙獎勵什麼)"]
+        I2 --> I3["111 二階意願 (元表徵與應無所住)"]
+        I3 --> I4["113 自我約束 (有限制才有力量)"]
+        I4 --> I5["119 預訓練與後訓練 (認知上限與對齊)"]
+    end
+
+    A7 -.-> B1
+    B6 -.-> C1
+    C5 -.-> D1
+    D5 -.-> E1
+    E5 -.-> F1
+    F5 -.-> G1
+    G5 -.-> H1
+    H5 -.-> I1
         </pre>
       </div>
     </section>
 
-    <!-- Tab 2: E01 -->
-    <section class="tab-content" id="tab-e01">
+    <!-- Tab: Registry Hub (知識庫擴充體系中心) -->
+    <section class="tab-content" id="tab-registry">
       <div class="hero">
-        <h1 class="hero-title">E01 基本世界觀（第 01～07 講）</h1>
-        <p class="hero-subtitle">世界觀不能自主選擇，只能認識到什麼程度就接受到什麼程度</p>
+        <h1 class="hero-title">大腦知識庫導航體系與擴充中心</h1>
+        <p class="hero-subtitle">大衛人生個人成長知識系統（A2.2 模組群）。採用高度模組化、多主題可擴充架構，每個領域皆具備結構化知識庫、雙軌認知拆解與 16:9 全景簡報放映通道。</p>
       </div>
-      <div id="e01-content"></div>
 
-      <div class="section-header" style="margin-top:2.5rem;">
-        <h2 class="section-title">E01 關聯結構圖</h2>
+      <div class="section-header">
+        <h2 class="section-title">個人成長四大核心領域總覽</h2>
       </div>
-      <div class="mermaid-box">
-        <pre class="mermaid">
-flowchart TD
-    A["01 敘事<br/>宇宙第一性原理：<br/>世界通過敘事被理解和驅動"] --> B["02 重尾<br/>敘事之下的世界真相：<br/>不均勻、服從極端值/複利"]
-    B --> C["03 能動<br/>為什麼多數人認不清02：<br/>舊敘事（穩態生存邏輯）困住了人"]
-    C --> D["04 約束<br/>破除舊敘事後，新敘事<br/>仍須尊重硬約束，不能變成許願"]
-    D --> F["06 可能<br/>硬約束之內依然存在的<br/>不確定性，是敘事與意義的燃料"]
-    F --> G["07 內核<br/>三層自我，成長=改寫內核參數"]
-    G -.-> A
-        </pre>
+      <div class="cards-grid" id="registry-topics-grid">
+        <!-- Injected via app.js -->
       </div>
-    </section>
 
-    <!-- Tab 3: E02 -->
-    <section class="tab-content" id="tab-e02">
-      <div class="hero">
-        <h1 class="hero-title">E02 模組一：成長戰略（第 08～26 講）</h1>
-        <p class="hero-subtitle">回答一個人該如何主動地把自己活成一個能持續變強、又不被異化的能動者</p>
-      </div>
-      <div id="e02-content"></div>
-
-      <div class="section-header" style="margin-top:2.5rem;">
-        <h2 class="section-title">E02 關聯結構圖</h2>
-      </div>
-      <div class="mermaid-box">
-        <pre class="mermaid">
-flowchart TD
-    L8["08 能耐尋求定理<br/>增加選項/賦能"] --> L12["12 自我決定理論<br/>動機質量>強度"]
-    L12 --> L16["16 WOOP<br/>If-Then 執行意圖"]
-    L14["14 自由能原理<br/>最小化驚訝·對齊"] -.-> L12
-    L9["09 供給側心態<br/>降低摩擦"] --> L10["10 複利<br/>七種資本"]
-    L10 --> L17["17 社交資本/結構洞"]
-    L20["20 身份認同<br/>駕馭身份"] --> L22["22 賽道選擇<br/>孫悟空 vs 天兵天將"]
-    L22 --> L25["25 探索與利用<br/>吉廷斯指數"]
-    L25 --> L26["26 共鳴<br/>使命 × 共鳴"]
-        </pre>
+      <!-- Extensibility Architecture Guide Box -->
+      <div class="architecture-guide-box">
+        <div class="guide-header">
+          <div class="guide-badge">📐 未來資料擴充架構規範 (Extensibility Architecture)</div>
+          <h3 class="guide-title">如何無縫擴充新的主題與簡報（例如 A2.2.2 超級個體）</h3>
+        </div>
+        <div class="guide-body">
+          <p>本知識庫門戶遵循<strong>「資料與展示解耦」</strong>的現代化微架構設計。未來新增任何主題或筆記簡報，只需完成以下三個輕量步驟：</p>
+          <ol class="guide-steps">
+            <li>
+              <strong>在 <code>registry.js</code> 註冊主題</strong>：於 <code>KNOWLEDGE_REGISTRY.topics</code> 新增一個配置物件，指定 <code>id</code> (如 A2.2.2)、主題標題、標籤與簡報連結 <code>slides.html?topic=A2.2.2</code>。
+            </li>
+            <li>
+              <strong>填寫標準資料來源 (JSON/JS)</strong>：參考 <code>templates/module-template.json</code>，填寫該主題的逐講資料（包含 <code>num</code>, <code>title</code>, <code>beginner</code>, <code>advanced</code>, <code>image</code> 等雙軌欄位）。
+            </li>
+            <li>
+              <strong>全自動串聯與發布</strong>：門戶與簡報播放器會自動辨識並載入新主題，透過 <code>git push</code> 直接在 GitHub Pages 上線！
+            </li>
+          </ol>
+        </div>
       </div>
     </section>
 
-    <!-- Tab 4: E03 -->
-    <section class="tab-content" id="tab-e03">
-      <div class="hero">
-        <h1 class="hero-title">E03 模組二：決策與判斷（第 27～45 講）</h1>
-        <p class="hero-subtitle">在根本無法被算盡的世界裡設定立場、看清局面、管理風險、避開幻覺，並把判斷轉化為可持續修正的行動</p>
-      </div>
-      <div id="e03-content"></div>
-
-      <div class="section-header" style="margin-top:2.5rem;">
-        <h2 class="section-title">E03 五層骨架關聯圖</h2>
-      </div>
-      <div class="mermaid-box">
-        <pre class="mermaid">
-flowchart TD
-    L27["27 無免費午餐<br/>強偏置、弱偏執"] --> L28["28 機率分佈<br/>選機率分佈·首要指望可活"]
-    L28 --> L29["29 顆粒度/因果中介<br/>理解即壓縮·盯中介"]
-    L29 --> L31["31 貝葉斯先驗<br/>後驗=先驗+證據更新"]
-    L31 --> L33["33 凱利公式<br/>f* = edge / odds"]
-    L33 --> L35["35 反脆弱<br/>詹森不等式·凸性收益"]
-    L35 --> L37["37 期權<br/>專有進入權·雙向門"]
-    L37 --> L38["38 狀態槓桿<br/>貝爾曼方程·不可逆進展"]
-    L38 --> L45["45 OODA 環<br/>換腦快>反應快·定向改敘事"]
-    L45 -.-> L27
-        </pre>
-      </div>
-    </section>
-
-    <!-- Tab 5: E04 -->
-    <section class="tab-content" id="tab-e04">
-      <div class="hero">
-        <h1 class="hero-title">E04 模組三：學習與教育（第 46～57 講）</h1>
-        <p class="hero-subtitle">在大腦帶寬極其有限、AI 正在快速喫掉顯性知識的時代，一個人到底該學什麼、怎麼學、在什麼狀態下學</p>
-      </div>
-      <div id="e04-content"></div>
-
-      <div class="section-header" style="margin-top:2.5rem;">
-        <h2 class="section-title">E04 五層骨架關聯圖</h2>
-      </div>
-      <div class="mermaid-box">
-        <pre class="mermaid">
-flowchart TD
-    subgraph A["① 硬體約束 · 學習的物理學"]
-        L46["46 認知負荷理論<br/>工作記憶是窄門<br/>圖式=壓縮包<br/>減外在負荷，留內在負荷"]
-    end
-
-    subgraph B["② 操作姿勢 · 怎麼學"]
-        L47["47 ICAP 框架<br/>I > C > A > P<br/>自我解釋是分水嶺"]
-        L49["49 刻意練習<br/>四條件+學習區<br/>天賦 × 練習 = 乘法"]
-        L53["53 可取困難<br/>提取/間隔/交錯<br/>安全感+好奇心+適度壓力"]
-    end
-
-    subgraph C["③ 學什麼 · 知識的形態"]
-        L50["50 表徵→圖式→心智模型→解釋框架<br/>學習即壓縮"]
-        L51["51 綜合調研<br/>半熟知識<br/>定位/結構化/生成"]
-        L52["52 默會知識<br/>只可意會，必須內居<br/>AI 的邊界"]
-    end
-
-    subgraph D["④ 制度與角色 · 誰在教"]
-        L55["55 人力資本/信號篩選/社交資本<br/>階段配比戲劇性偏轉"]
-        L56["56 自主支持<br/>漸進退出<br/>反對心理控制"]
-    end
-
-    subgraph E["⑤ 落地閉環 · 學以致用"]
-        L57["57 擁抱與橋接<br/>低路遷移 vs 高路遷移<br/>三道鎖"]
-    end
-
-    L46 -->|"知道帶寬限制<br/>再談用什麼動作加工"| L47
-    L47 -->|"C/I 是通用學習法<br/>要拔尖還需定製路線"| L49
-    L49 -->|"練習要在什麼<br/>身心狀態下進行"| L53
-    L46 ==>|"可取困難=對內較勁<br/>不可取困難=對外施壓"| L53
-    L46 -->|"圖式升格為<br/>四層知識結構第二層"| L50
-    L50 -->|"教科書裡沒有的<br/>結構去哪裡挖？"| L51
-    L51 -->|"寫得出來的是顯性<br/>寫不出來的呢？"| L52
-    L55 -->|"學校的三功能<br/>決定家長該幹什麼"| L56
-    L50 -->|"學到了結構<br/>怎麼用出去？"| L57
-    L57 -.->|"橋接提取的正是<br/>圖式與心智模型"| L50
-        </pre>
-      </div>
-    </section>
+    <!-- Tab Containers for All 9 Modules (E01 to E09) -->
+    <section class="tab-content" id="tab-e01"><div id="e01-content"></div></section>
+    <section class="tab-content" id="tab-e02"><div id="e02-content"></div></section>
+    <section class="tab-content" id="tab-e03"><div id="e03-content"></div></section>
+    <section class="tab-content" id="tab-e04"><div id="e04-content"></div></section>
+    <section class="tab-content" id="tab-e05"><div id="e05-content"></div></section>
+    <section class="tab-content" id="tab-e06"><div id="e06-content"></div></section>
+    <section class="tab-content" id="tab-e07"><div id="e07-content"></div></section>
+    <section class="tab-content" id="tab-e08"><div id="e08-content"></div></section>
+    <section class="tab-content" id="tab-e09"><div id="e09-content"></div></section>
 
   </main>
 
   <!-- Search Modal -->
-  <div class="modal-overlay" id="search-modal">
-    <div class="modal-body">
-      <div class="search-input-wrapper">
+  <div class="search-modal" id="search-modal">
+    <div class="search-modal-content">
+      <div class="search-header">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <input type="text" class="search-input" id="search-input" placeholder="輸入講數（如 01、28、46）或關鍵字（如 貝葉斯、ICAP、圖式）..." />
+        <input type="text" id="search-input" placeholder="搜尋講數（如 058）、概念（如 經濟租、貝葉斯、OODA）、比喻（如 收費橋）..." autofocus>
+        <button class="search-close" id="btn-search-close">✕</button>
       </div>
       <div class="search-results" id="search-results"></div>
     </div>
   </div>
 
   <!-- Scripts -->
-  <script src="data.js?v=20260728"></script>
-  <script src="app.js?v=20260728"></script>
+  <script src="registry.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

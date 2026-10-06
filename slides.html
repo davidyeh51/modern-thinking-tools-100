@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>萬維鋼·現代思維工具 100 講 | 沉浸式全景簡報系統</title>
+  <meta name="description" content="全 120 講沉浸式網頁投影片簡報系統。支援雙軌認知視角：入門者白話生活比喻 × 進階者底層思維框架，每頁均配備高畫質概念圖解與落地方案。">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Slide Styles -->
+  <link rel="stylesheet" href="slides.css?v=20261006">
+
+  <!-- Mermaid.js for interactive flowcharts -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</head>
+<body class="slide-body">
+
+  <!-- Top Slide Navigation Bar -->
+  <header class="slide-header">
+    <div class="slide-nav-left">
+      <a href="index.html" class="btn-portal" title="返回知識庫首頁">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>返回知識庫</span>
+      </a>
+
+      <div class="divider"></div>
+
+      <!-- Module & Lecture Quick Jump -->
+      <div class="jump-control">
+        <select id="module-select" class="nav-select" title="跳轉模組">
+          <option value="E01">E01 基本世界觀 (001–007)</option>
+          <option value="E02">E02 成長戰略 (008–026)</option>
+          <option value="E03">E03 決策判斷 (027–045)</option>
+          <option value="E04">E04 學習教育 (046–057)</option>
+          <option value="E05">E05 賺錢邏輯 (058–069)</option>
+          <option value="E06">E06 參與者 (070–086)</option>
+          <option value="E07">E07 領導者 (087–098)</option>
+          <option value="E08">E08 演化者 (099–108)</option>
+          <option value="E09">E09 高觀點 (109–120)</option>
+        </select>
+
+        <select id="lecture-select" class="nav-select" title="跳轉講數">
+          <!-- Populated via slides.js -->
+        </select>
+      </div>
+    </div>
+
+    <!-- Center: Cognitive View Switcher (Beginner vs Advanced vs Dual) -->
+    <div class="view-switcher" role="radiogroup" aria-label="認知視角切換">
+      <button class="view-btn active" data-view="dual" title="雙軌並列：入門白話與進階框架同時呈現（快捷鍵 1）">
+        <span class="view-dot"></span>
+        <span>雙軌並行</span>
+      </button>
+      <button class="view-btn" data-view="beginner" title="入門專注：放大白話生活比喻、痛點直覺（快捷鍵 2）">
+        <span class="view-dot green"></span>
+        <span>入門理解</span>
+      </button>
+      <button class="view-btn" data-view="advanced" title="進階深研：放大學術脈絡、決策模型與思考架構（快捷鍵 3）">
+        <span class="view-dot red"></span>
+        <span>進階框架</span>
+      </button>
+    </div>
+
+    <!-- Right: Utility Controls -->
+    <div class="slide-nav-right">
+      <button class="btn-slide-tool" id="btn-search-trigger" title="全局關鍵字搜尋 (Ctrl+K)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span class="kbd-hint">Ctrl+K</span>
+      </button>
+
+      <button class="btn-slide-tool" id="btn-theme-toggle" title="切換明暗主題">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+
+      <button class="btn-slide-tool" id="btn-fullscreen-toggle" title="全螢幕投影模式 (F)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Slide Stage Container (16:9 Presentation Viewport) -->
+  <main class="slide-stage" id="slide-stage">
+    <div class="slide-card" id="slide-container">
+      <!-- Injected via slides.js -->
+    </div>
+  </main>
+
+  <!-- Bottom Floating Presentation Controls Bar -->
+  <footer class="slide-footer">
+    <div class="footer-left">
+      <button class="btn-nav" id="btn-prev" title="上一頁 (← / PageUp)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>上一講</span>
+      </button>
+    </div>
+
+    <!-- Center: Interactive Progress Bar & Slide Index Counter -->
+    <div class="footer-center">
+      <div class="slide-progress-wrapper">
+        <div class="slide-counter-badge" id="slide-counter-badge">
+          第 001 講 / 共 120 講
+        </div>
+        <div class="slide-progress-track" id="progress-track" title="點擊進度條可快速跳轉">
+          <div class="slide-progress-fill" id="progress-fill" style="width: 0.83%;"></div>
+        </div>
+        <div class="slide-percent" id="slide-percent">1%</div>
+      </div>
+    </div>
+
+    <div class="footer-right">
+      <button class="btn-nav primary" id="btn-next" title="下一頁 (→ / Space)">
+        <span>下一講</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Search Modal -->
+  <div class="search-modal-backdrop" id="search-modal">
+    <div class="search-modal-content">
+      <div class="search-input-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="search-input" placeholder="搜尋講數（如 058）、概念（如 經濟租、貝葉斯）、比喻（如 收費橋）..." autofocus>
+        <button class="btn-close-search" id="btn-close-search" title="關閉 (Esc)">✕</button>
+      </div>
+      <div class="search-results-list" id="search-results">
+        <!-- Rendered search items -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="registry.js"></script>
+  <script src="data.js"></script>
+  <script src="slides.js"></script>
+</body>
+</html>

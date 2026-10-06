@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "KnowledgeModuleTemplate",
+  "description": "個人成長知識庫主題模組與簡報標準資料範本（適用於 A2.2.2 超級個體、A2.2.3 系統思考等）",
+  "type": "object",
+  "required": ["id", "title", "lectures"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "模組編號，例如 'A2.2.2' 或 'M01'"
+    },
+    "title": {
+      "type": "string",
+      "description": "主題名稱，例如 '超級個體 · 隱性潛能與高維學習'"
+    },
+    "subtitle": {
+      "type": "string",
+      "description": "主題副標題或一句話核心定位"
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "分類標籤清單"
+    },
+    "lectures": {
+      "type": "array",
+      "description": "逐講/逐頁簡報內容陣列",
+      "items": {
+        "type": "object",
+        "required": ["num", "title", "beginner", "advanced", "image"],
+        "properties": {
+          "num": {
+            "type": "string",
+            "description": "講數或投影片編號（3位數字字串），例如 '001'"
+          },
+          "title": {
+            "type": "string",
+            "description": "講題標題，例如 '隱性潛能：起點不決定終點'"
+          },
+          "tagline": {
+            "type": "string",
+            "description": "本質金句或核心結論"
+          },
+          "beginner": {
+            "type": "object",
+            "description": "入門者白話拆解（小白一分鐘秒懂）",
+            "required": ["metaphor", "painPoint", "plainTakeaway"],
+            "properties": {
+              "metaphor": { "type": "string", "description": "日常生活通俗比喻" },
+              "painPoint": { "type": "string", "description": "常人直覺盲點或痛點" },
+              "plainTakeaway": { "type": "string", "description": "一句話生活化本質" }
+            }
+          },
+          "advanced": {
+            "type": "object",
+            "description": "進階者思考架構（高階者建立系統）",
+            "required": ["lineage", "framework", "boundary"],
+            "properties": {
+              "lineage": { "type": "string", "description": "底層原理與學術脈絡" },
+              "framework": { "type": "string", "description": "思考架構與決策模型矩陣" },
+              "boundary": { "type": "string", "description": "邊界條件與反脆弱防護" },
+              "relatedTools": {
+                "type": "array",
+                "items": { "type": "string" },
+                "description": "關聯的心智模型名稱"
+              }
+            }
+          },
+          "highlights": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "3~4 點核心亮點提煉"
+          },
+          "action": {
+            "type": "string",
+            "description": "落地實踐行動或思考練習"
+          },
+          "image": {
+            "type": "object",
+            "required": ["url", "alt", "metaphor"],
+            "properties": {
+              "url": { "type": "string", "description": "概念配圖 URL" },
+              "thumb": { "type": "string", "description": "縮圖 URL（選填）" },
+              "alt": { "type": "string", "description": "圖片描述" },
+              "metaphor": { "type": "string", "description": "視覺隱喻說明（解釋為何使用此圖）" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

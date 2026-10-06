@@ -1,5 +1,5 @@
 /* =====================================================================
-   app.js — 萬維鋼《現代思維工具100講》渲染與互動邏輯
+   app.js — 萬維鋼《現代思維工具100講》知識門戶與全景看板互動邏輯
    ===================================================================== */
 
 // Mermaid 初始化（溫暖色系主題配置）
@@ -25,28 +25,28 @@ mermaid.initialize({
 });
 
 // ──────────────────────────────────────────────────────────────────────
-// 工具函數
-// ──────────────────────────────────────────────────────────────────────
-function svgIcon(name) {
-  const icons = {
-    book: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
-    chart: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
-    brain: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2a2.5 2.5 0 0 1 5 0"/><path d="M14.5 2a2.5 2.5 0 1 1 4.33 2.5"/><path d="M18 8a4 4 0 0 1 0 8"/><path d="M14.5 22a2.5 2.5 0 0 0 4.33-2.5"/><path d="M9.5 22a2.5 2.5 0 0 1-5 0"/><path d="M6 14a4 4 0 0 1 0-8"/><path d="M9.5 2a2.5 2.5 0 0 0-4.33 2.5"/><path d="M12 12h.01"/></svg>`,
-    link: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
-  };
-  return icons[name] || icons.book;
-}
-
-// ──────────────────────────────────────────────────────────────────────
-// 渲染：總覽頁面
+// 渲染：總覽頁面 (Overview)
 // ──────────────────────────────────────────────────────────────────────
 function renderOverview() {
   // Hero Banner
   const hero = document.getElementById('overview-hero');
   if (hero) {
     hero.innerHTML = `
+      <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.75rem;">
+        <span class="tag" style="font-size:0.82rem;padding:0.25rem 0.75rem;">A2.2 個人成長旗艦知識庫</span>
+        <span class="tag" style="background:rgba(16,185,129,0.15);color:#10b981;">120 講全景收錄</span>
+      </div>
       <h1 class="hero-title">${overviewData.heroTitle}</h1>
-      <p class="hero-subtitle">${overviewData.heroSubtitle}</p>`;
+      <p class="hero-subtitle">${overviewData.heroSubtitle}</p>
+      <div style="display:flex;gap:0.85rem;margin-top:1.4rem;flex-wrap:wrap;">
+        <a href="slides.html" class="btn-launch-slides" style="padding:0.65rem 1.4rem;font-size:0.95rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          <span>開啟 120 講全景簡報放映</span>
+        </a>
+        <button class="btn-search" onclick="switchTab('registry')" style="padding:0.65rem 1.2rem;border-radius:9999px;">
+          <span>🧭 檢視知識庫擴充體系</span>
+        </button>
+      </div>`;
   }
 
   // Stats Grid
@@ -62,26 +62,31 @@ function renderOverview() {
       </div>`).join('');
   }
 
-  // Module Grid
+  // Modules Grid
   const modulesEl = document.getElementById('overview-modules');
   if (modulesEl) {
     modulesEl.innerHTML = overviewData.modules.map(m => `
       <div class="shift-card" style="cursor:pointer;" onclick="switchTab('${m.label}')">
         <div class="shift-header">
           <span class="shift-badge">${m.label} · ${m.range}</span>
+          <a href="slides.html?module=${m.label}" onclick="event.stopPropagation();" class="tag" style="text-decoration:none;" title="直接播放此模組簡報">
+            📊 播放簡報
+          </a>
         </div>
         <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:0.75rem;">
-          <div class="stat-icon" style="color:var(--accent-gold);">${m.icon}</div>
+          <div class="stat-icon" style="color:var(--accent-gold);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
           <div class="lecture-title">${m.title}</div>
         </div>
         <p class="lecture-summary">${m.desc}</p>
         <ul class="highlights-list">
-          ${m.points.map(p => `<li class="highlight-item">${p}</li>`).join('')}
+          ${m.points.map(p => `<li class="highlight-item">${escapeHtml(p)}</li>`).join('')}
         </ul>
       </div>`).join('');
   }
 
-  // Shift Cards
+  // Shifts Grid
   const shiftsEl = document.getElementById('overview-shifts');
   if (shiftsEl) {
     shiftsEl.innerHTML = overviewData.shifts.map(s => `
@@ -94,11 +99,11 @@ function renderOverview() {
         <div class="shift-vs">
           <div class="vs-box vs-old">
             <div class="vs-title">❌ 舊思維</div>
-            ${s.old}
+            ${escapeHtml(s.old)}
           </div>
           <div class="vs-box vs-new">
             <div class="vs-title">✅ 新思維</div>
-            ${s.new}
+            ${escapeHtml(s.new)}
           </div>
         </div>
       </div>`).join('');
@@ -106,127 +111,146 @@ function renderOverview() {
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// 渲染：E01 基本世界觀
+// 渲染：擴充體系中心 (Registry Hub)
 // ──────────────────────────────────────────────────────────────────────
-function renderE01() {
-  const container = document.getElementById('e01-content');
-  if (!container) return;
+function renderRegistry() {
+  const grid = document.getElementById('registry-topics-grid');
+  if (!grid || !window.KNOWLEDGE_REGISTRY) return;
 
-  let html = `<div class="quote-box">${e01Data.quote}</div>`;
-  html += `<div class="svg-wrap">${e01Data.svgDiagram}</div>`;
-  html += e01Data.lectures.map(l => renderLectureCard(l)).join('');
+  grid.innerHTML = KNOWLEDGE_REGISTRY.topics.map(t => `
+    <div class="topic-card">
+      <div class="topic-header-row">
+        <span class="topic-id-badge">${t.id}</span>
+        <span class="topic-status-badge ${t.status}">${t.badge}</span>
+      </div>
 
-  container.innerHTML = html;
-}
+      <div>
+        <h3 class="topic-title">${t.title}</h3>
+        <p style="font-size:0.85rem;color:var(--accent-gold);margin-top:0.25rem;">${t.subtitle}</p>
+      </div>
 
-// ──────────────────────────────────────────────────────────────────────
-// 渲染：E02 成長戰略
-// ──────────────────────────────────────────────────────────────────────
-function renderE02() {
-  const container = document.getElementById('e02-content');
-  if (!container) return;
+      <p class="topic-desc">${t.description}</p>
 
-  let html = `<div class="quote-box">${e02Data.quote}</div>`;
+      <div class="topic-tags-row">
+        ${t.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+      </div>
 
-  html += e02Data.categories.map(cat => `
-    <div class="category-block">
-      <div class="category-title">${cat.title}</div>
-      ${cat.lectures.map(l => renderLectureCard(l)).join('')}
+      <div class="topic-actions-row">
+        ${t.status === 'active' ? `
+          <a href="${t.links.slides}" class="btn-topic-action primary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span>放映全景簡報</span>
+          </a>
+          <button onclick="switchTab('E01')" class="btn-topic-action secondary">
+            <span>瀏覽 120 講卡片</span>
+          </button>
+        ` : `
+          <a href="${t.links.slides}" class="btn-topic-action secondary" style="opacity:0.75;" onclick="alert('【${t.title}】主題資料架構已預備，即將於下一階段匯入 Obsidian 筆記！');return false;">
+            <span>預覽架構簡報</span>
+          </a>
+          <button class="btn-topic-action secondary" onclick="alert('【${t.title}】可依據下方《未來資料擴充架構規範》無縫擴充！')">
+            <span>查看資料規範</span>
+          </button>
+        `}
+      </div>
     </div>`).join('');
+}
+
+// ──────────────────────────────────────────────────────────────────────
+// 通用模組渲染器 (Dynamic Module Renderer for E01 ~ E09)
+// ──────────────────────────────────────────────────────────────────────
+function renderModule(modId) {
+  const container = document.getElementById(`e0${modId.slice(1).toLowerCase()}-content`) ||
+                    document.getElementById(`${modId.toLowerCase()}-content`);
+  if (!container || !modulesData[modId]) return;
+
+  const mod = modulesData[modId];
+
+  let html = `
+    <!-- Module Header Banner -->
+    <div class="module-banner-box">
+      <div>
+        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.4rem;">
+          <span class="shift-badge">${mod.id} · ${mod.range}</span>
+          <span class="tag">${mod.lecturesCount} 講全收錄</span>
+        </div>
+        <div class="module-banner-quote">“ ${escapeHtml(mod.quote)} ”</div>
+      </div>
+      <a href="slides.html?module=${mod.id}" class="btn-module-slide">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <span>播放 ${mod.id} 模組簡報</span>
+      </a>
+    </div>
+
+    <!-- Lectures Cards Grid -->
+    <div class="cards-grid">
+      ${mod.lectures.map(l => renderLectureCard(l)).join('')}
+    </div>
+  `;
 
   container.innerHTML = html;
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// 渲染：E03 決策與判斷
-// ──────────────────────────────────────────────────────────────────────
-function renderE03() {
-  const container = document.getElementById('e03-content');
-  if (!container) return;
-
-  let html = `<div class="quote-box">${e03Data.quote}</div>`;
-
-  html += `
-    <div class="section-header" style="margin-top:0;">
-      <h2 class="section-title">決策工具框架總覽</h2>
-    </div>
-    ${e03Data.tableHtml}`;
-
-  html += e03Data.categories.map(cat => `
-    <div class="category-block">
-      <div class="category-title">${cat.title}</div>
-      ${cat.lectures.map(l => renderLectureCard(l)).join('')}
-    </div>`).join('');
-
-  container.innerHTML = html;
-}
-
-// ──────────────────────────────────────────────────────────────────────
-// 渲染：E04 學習與教育
-// ──────────────────────────────────────────────────────────────────────
-function renderE04() {
-  const container = document.getElementById('e04-content');
-  if (!container) return;
-
-  let html = `<div class="quote-box">${e04Data.quote}</div>`;
-
-  // 1. 五層骨架表格
-  html += `
-    <div class="section-header" style="margin-top:0;">
-      <h2 class="section-title">E04 模組五層骨架總覽</h2>
-    </div>
-    ${e04Data.tableHtml}`;
-
-  // 2. ICAP SVG 圖表
-  html += `
-    <div class="section-header" style="margin-top:2.2rem;">
-      <h2 class="section-title">ICAP 學習參與強度梯級圖</h2>
-    </div>
-    <div class="svg-wrap">${e04Data.icapSvg}</div>`;
-
-  // 3. 學校三功能表格
-  html += `
-    <div class="section-header" style="margin-top:2.2rem;">
-      <h2 class="section-title">學校三功能 × 各階段配比表</h2>
-    </div>
-    ${e04Data.schoolTableHtml}`;
-
-  // 4. 逐講內容卡片
-  html += e04Data.categories.map(cat => `
-    <div class="category-block">
-      <div class="category-title">${cat.title}</div>
-      ${cat.lectures.map(l => renderLectureCard(l)).join('')}
-    </div>`).join('');
-
-  container.innerHTML = html;
-}
-
-// ──────────────────────────────────────────────────────────────────────
-// 通用：渲染講數卡片
+// 通用：渲染單講卡片 (Lecture Card)
 // ──────────────────────────────────────────────────────────────────────
 function renderLectureCard(l) {
   return `
-    <div class="lecture-card">
+    <div class="lecture-card" id="card-${l.num}">
+      <!-- Concept Image Thumbnail -->
+      <div class="lecture-card-thumb-wrap">
+        <img src="${l.image.thumb || l.image.url}" alt="${escapeHtml(l.title)}" class="lecture-card-thumb" loading="lazy" />
+        <div class="card-thumb-badge">🖼️ 隱喻：${escapeHtml(l.image.metaphor)}</div>
+      </div>
+
       <div class="lecture-header">
         <span class="lecture-num">第 ${l.num} 講</span>
-        <div class="lecture-title">${l.title}</div>
+        <div class="lecture-title">${escapeHtml(l.title)}</div>
       </div>
-      <p class="lecture-summary">${l.summary}</p>
+
+      <div class="slide-tagline-box" style="margin:0.65rem 0;font-size:0.84rem;padding:0.5rem 0.75rem;">
+        💡 ${escapeHtml(l.tagline)}
+      </div>
+
+      <!-- Cognitive Dual Track Preview -->
+      <div class="cognitive-preview-row">
+        <div class="cognitive-item">
+          <span class="cognitive-pill green">🟢 入門白話</span>
+          <span>${escapeHtml(l.beginner.metaphor)}</span>
+        </div>
+        <div class="cognitive-item">
+          <span class="cognitive-pill gold">🔥 進階框架</span>
+          <span>${escapeHtml(l.advanced.framework)}</span>
+        </div>
+      </div>
+
       <ul class="highlights-list">
-        ${l.highlights.map(h => `<li class="highlight-item">${h}</li>`).join('')}
+        ${l.highlights.slice(0, 3).map(h => `<li class="highlight-item">${escapeHtml(h)}</li>`).join('')}
       </ul>
+
+      <!-- Direct Slide Launcher Button -->
+      <a href="slides.html?slide=${l.num}" class="btn-card-slide" title="在全景簡報中放映第 ${l.num} 講">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        <span>觀看本講簡報（第 ${l.num} 講）</span>
+      </a>
     </div>`;
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// Tab 切換邏輯
+// Tab 切換邏輯 (Tabs Management)
 // ──────────────────────────────────────────────────────────────────────
 const TAB_MAP = {
   overview: 'tab-overview',
+  registry: 'tab-registry',
   E01: 'tab-e01',
   E02: 'tab-e02',
   E03: 'tab-e03',
   E04: 'tab-e04',
+  E05: 'tab-e05',
+  E06: 'tab-e06',
+  E07: 'tab-e07',
+  E08: 'tab-e08',
+  E09: 'tab-e09',
 };
 
 let renderedTabs = new Set();
@@ -247,11 +271,13 @@ function switchTab(tabKey) {
 
   if (!renderedTabs.has(tabKey)) {
     renderedTabs.add(tabKey);
-    if (tabKey === 'overview') renderOverview();
-    else if (tabKey === 'E01') renderE01();
-    else if (tabKey === 'E02') renderE02();
-    else if (tabKey === 'E03') renderE03();
-    else if (tabKey === 'E04') renderE04();
+    if (tabKey === 'overview') {
+      renderOverview();
+    } else if (tabKey === 'registry') {
+      renderRegistry();
+    } else if (tabKey.startsWith('E0')) {
+      renderModule(tabKey);
+    }
 
     setTimeout(() => {
       try { mermaid.run(); } catch (e) { /* ignore */ }
@@ -262,11 +288,12 @@ function switchTab(tabKey) {
 }
 
 // ──────────────────────────────────────────────────────────────────────
-// 搜尋 Modal 邏輯
+// 搜尋 Modal 邏輯 (Global Keyword Search)
 // ──────────────────────────────────────────────────────────────────────
 const searchModal = document.getElementById('search-modal');
 const searchInput = document.getElementById('search-input');
 const searchResults = document.getElementById('search-results');
+const btnSearchClose = document.getElementById('btn-search-close');
 
 function openSearch() {
   searchModal.classList.add('active');
@@ -280,13 +307,14 @@ function closeSearch() {
 }
 
 document.getElementById('btn-search-trigger').addEventListener('click', openSearch);
+if (btnSearchClose) btnSearchClose.addEventListener('click', closeSearch);
 
 searchModal.addEventListener('click', e => {
   if (e.target === searchModal) closeSearch();
 });
 
 document.addEventListener('keydown', e => {
-  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
     e.preventDefault();
     openSearch();
   }
@@ -295,45 +323,67 @@ document.addEventListener('keydown', e => {
 
 searchInput.addEventListener('input', () => {
   const q = searchInput.value.trim().toLowerCase();
-  if (!q) { searchResults.innerHTML = ''; return; }
+  if (!q) {
+    searchResults.innerHTML = '';
+    return;
+  }
 
   const results = searchIndex.filter(item =>
-    item.num.includes(q) ||
-    item.title.toLowerCase().includes(q) ||
     item.keywords.toLowerCase().includes(q)
   ).slice(0, 10);
 
   if (!results.length) {
-    searchResults.innerHTML = `<div style="color:var(--text-muted);padding:1.2rem;text-align:center;">沒有找到相關內容</div>`;
+    searchResults.innerHTML = `<div style="color:var(--text-muted);padding:1.5rem;text-align:center;">沒有找到相關內容</div>`;
     return;
   }
 
   searchResults.innerHTML = results.map(r => `
-    <div class="search-result-item" onclick="switchTab('${r.tab}');closeSearch();">
-      <div style="display:flex;align-items:center;gap:0.65rem;margin-bottom:0.35rem;">
-        <span class="lecture-num" style="padding:0.2rem 0.55rem;font-size:0.78rem;">第 ${r.num} 講</span>
-        <span class="tag">${r.tab}</span>
+    <div class="search-result-item" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;">
+      <div style="flex:1;">
+        <div style="display:flex;align-items:center;gap:0.6rem;margin-bottom:0.25rem;">
+          <span class="lecture-num" style="padding:0.15rem 0.5rem;font-size:0.75rem;">第 ${r.num} 講</span>
+          <span class="tag">${r.module} · ${escapeHtml(r.moduleName)}</span>
+        </div>
+        <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);">${escapeHtml(r.title)}</div>
+        <div style="font-size:0.8rem;color:var(--text-muted);margin-top:0.2rem;">${escapeHtml(r.tagline)}</div>
       </div>
-      <div style="font-weight:700;font-size:0.95rem;color:var(--text-primary);">${r.title}</div>
+      <div class="search-result-actions">
+        <button class="btn-search-act" onclick="jumpToCard('${r.module}', '${r.num}')">📖 查看卡片</button>
+        <a href="slides.html?slide=${r.num}" class="btn-search-act" style="background:var(--accent-gold);color:#18120c;">📊 放映簡報</a>
+      </div>
     </div>`).join('');
 });
 
+function jumpToCard(moduleId, numStr) {
+  closeSearch();
+  switchTab(moduleId);
+  setTimeout(() => {
+    const card = document.getElementById(`card-${numStr}`);
+    if (card) {
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      card.style.outline = '2px solid var(--accent-gold)';
+      setTimeout(() => { card.style.outline = 'none'; }, 2000);
+    }
+  }, 250);
+}
+
 // ──────────────────────────────────────────────────────────────────────
-// 主題切換
+// 主題切換 (Light / Dark Theme)
 // ──────────────────────────────────────────────────────────────────────
 const themeBtn = document.getElementById('btn-theme-toggle');
 themeBtn.addEventListener('click', () => {
   const html = document.documentElement;
   const isDark = html.getAttribute('data-theme') === 'dark';
-  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  const newTheme = isDark ? 'light' : 'dark';
+  html.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
 });
 
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
 
 // ──────────────────────────────────────────────────────────────────────
-// 初始化事件綁定
+// 初始化事件綁定 (Initialization)
 // ──────────────────────────────────────────────────────────────────────
 document.querySelectorAll('.nav-item').forEach(item => {
   item.addEventListener('click', () => {
@@ -341,6 +391,16 @@ document.querySelectorAll('.nav-item').forEach(item => {
     if (tab) switchTab(tab);
   });
 });
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
 
 window.addEventListener('DOMContentLoaded', () => {
   renderOverview();
