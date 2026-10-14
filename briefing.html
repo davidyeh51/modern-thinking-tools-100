@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>萬維鋼·現代思維工具 100 講 | 10 分鐘精華導讀簡報（麥肯錫顧問風格）</title>
+  <meta name="description" content="依據麥肯錫顧問風格設計之 10 分鐘精華導讀簡報（14 頁精準架構）。涵蓋全書架構骨架、E01~E09 逐模組重點、論證脈絡串聯、總結落地行動與逐頁三段式講稿備忘錄。">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Briefing Styles -->
+  <link rel="stylesheet" href="briefing.css?v=20261014">
+</head>
+<body class="briefing-body">
+
+  <!-- Top Header Navigation -->
+  <header class="briefing-header">
+    <div class="header-left">
+      <a href="index.html" class="btn-nav-action" title="返回知識庫首頁">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>知識庫首頁</span>
+      </a>
+
+      <div class="header-divider"></div>
+
+      <!-- Quick Slide Selector Dropdown -->
+      <select id="briefing-slide-select" class="slide-select" title="快速跳轉頁數">
+        <!-- Injected via briefing.js -->
+      </select>
+    </div>
+
+    <div class="header-right">
+      <!-- Direct Download PPTX File -->
+      <a href="wan_thinking_tools_100_briefing.pptx" download="wan_thinking_tools_100_briefing.pptx" class="btn-nav-action gold-highlight" title="直接下載 16:9 麥肯錫顧問風格 PPTX 檔案（含逐頁講稿備忘錄）">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        <span>下載 PPTX 簡報</span>
+      </a>
+
+      <!-- Switch to 120-lecture Deep-dive system -->
+      <a href="slides.html" class="btn-nav-action" title="切換至全 120 講雙軌沉浸式深研系統">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        <span>120 講全集放映</span>
+      </a>
+
+      <!-- Toggle Speaker Notes (N) -->
+      <button class="btn-nav-action" id="btn-toggle-notes" title="切換逐頁講稿備忘錄（快捷鍵 N）">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+        <span>講稿備忘錄 (N)</span>
+      </button>
+
+      <!-- Fullscreen Toggle (F) -->
+      <button class="btn-nav-action" id="btn-fullscreen" title="全螢幕放映 (F)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+      </button>
+
+      <!-- Theme Toggle -->
+      <button class="btn-nav-action" id="btn-theme" title="切換色彩模式">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- 16:9 Presentation Stage -->
+  <main class="briefing-stage">
+    <div class="slide-viewport" id="slide-viewport">
+      <!-- Injected dynamically via briefing.js -->
+    </div>
+  </main>
+
+  <!-- Bottom Interactive Presentation Controls Bar -->
+  <footer class="briefing-footer">
+    <div class="footer-left">
+      <button class="footer-btn-nav" id="btn-prev" title="上一頁 (← / PageUp)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        <span>上一頁</span>
+      </button>
+    </div>
+
+    <!-- Center: Progress Track & Page Badge -->
+    <div class="footer-center">
+      <div class="progress-track" id="progress-track" title="點選快速跳轉頁面">
+        <div class="progress-fill" id="progress-fill" style="width: 7.14%;"></div>
+      </div>
+      <div class="progress-text" id="progress-text">第 01 頁 / 共 14 頁</div>
+    </div>
+
+    <div class="footer-right">
+      <button class="footer-btn-nav primary" id="btn-next" title="下一頁 (→ / Space / PageDown)">
+        <span>下一頁</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </button>
+    </div>
+  </footer>
+
+  <!-- Floating Speaker Notes Drawer -->
+  <aside class="speaker-notes-drawer" id="notes-drawer">
+    <div class="notes-header">
+      <div class="notes-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
+        <span>麥肯錫風格 · 逐頁三段式講者提示備忘錄</span>
+      </div>
+      <button class="btn-close-notes" id="btn-close-notes" title="收合講稿 (N)">✕</button>
+    </div>
+    <div class="notes-content-grid" id="notes-content-grid">
+      <!-- Injected via briefing.js -->
+    </div>
+  </aside>
+
+  <!-- Scripts -->
+  <script src="briefing_data.js"></script>
+  <script src="briefing.js"></script>
+</body>
+</html>

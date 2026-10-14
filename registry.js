@@ -23,8 +23,21 @@ const KNOWLEDGE_REGISTRY = {
       description: '將現代前沿物理、認知心理學、資訊論、演化博弈與管理學，萃取為 120 個頂尖決策心智工具。專為初學者破除盲點、進階者建構體系而設計。',
       links: {
         portal: 'index.html',
+        briefing: 'briefing.html',
+        downloadPptx: 'wan_thinking_tools_100_briefing.pptx',
         slides: 'slides.html',
         firstSlide: 'slides.html?slide=001'
+      },
+      moduleSlideMapping: {
+        'E01': 3,
+        'E02': 4,
+        'E03': 5,
+        'E04': 6,
+        'E05': 7,
+        'E06': 8,
+        'E07': 9,
+        'E08': 10,
+        'E09': 11
       }
     },
     {

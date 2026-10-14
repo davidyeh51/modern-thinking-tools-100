@@ -1,0 +1,526 @@
+/* =====================================================================
+   briefing.css — 麥肯錫顧問風格 10 分鐘精華導讀簡報系統樣式表
+   配色：海軍藍 (#0A192F) + 中性灰階 (#F8FAFC, #64748B) + 琥珀金 (#D97706)
+   ===================================================================== */
+
+:root {
+  --navy-dark: #0a192f;
+  --navy-light: #1e3a8a;
+  --accent-gold: #d97706;
+  --accent-gold-light: #f59e0b;
+  --accent-gold-bg: rgba(217, 119, 6, 0.12);
+  --bg-primary: #0a192f;
+  --bg-stage: #050d1a;
+  --bg-card: #f8fafc;
+  --bg-card-header: #edf2f7;
+  --border-card: #cbd5e1;
+  --text-main: #1f2937;
+  --text-muted: #64748b;
+  --text-light: #f8fafc;
+  --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --font-sans: 'Noto Sans TC', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --bg-primary: #f1f5f9;
+  --bg-stage: #e2e8f0;
+  --bg-card: #ffffff;
+  --bg-card-header: #f8fafc;
+  --border-card: #cbd5e1;
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-light: #0a192f;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body.briefing-body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-stage);
+  color: var(--text-light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* 頂部導航列 */
+.briefing-header {
+  height: 60px;
+  background-color: var(--navy-dark);
+  border-bottom: 1px solid rgba(203, 213, 225, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  z-index: 50;
+  position: relative;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-nav-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-nav-action:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-nav-action.gold-highlight {
+  background: var(--accent-gold);
+  color: #ffffff;
+  border-color: var(--accent-gold-light);
+  font-weight: 600;
+}
+
+.btn-nav-action.gold-highlight:hover {
+  background: #b45309;
+}
+
+.header-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 0.25rem;
+}
+
+.slide-select {
+  background: rgba(15, 23, 42, 0.8);
+  color: #f1f5f9;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  outline: none;
+  cursor: pointer;
+  max-width: 280px;
+}
+
+.slide-select:focus {
+  border-color: var(--accent-gold);
+}
+
+/* 16:9 簡報舞台 */
+.briefing-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-viewport {
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 16 / 9;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+/* 封面樣式 */
+.slide-cover-layout {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0a192f 0%, #0d2342 100%);
+  color: #ffffff;
+  padding: 3.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+.cover-accent-bar {
+  width: 60px;
+  height: 5px;
+  background: var(--accent-gold);
+  border-radius: 3px;
+  margin-bottom: 0.75rem;
+}
+
+.cover-category {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--accent-gold-light);
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.cover-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.02em;
+}
+
+.cover-subtitle {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #93c5fd;
+  margin-bottom: 1.8rem;
+}
+
+.cover-claim-box {
+  background: rgba(15, 35, 65, 0.85);
+  border: 1.5px solid var(--accent-gold);
+  border-radius: 10px;
+  padding: 1.25rem 1.6rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cover-claim-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent-gold-light);
+  margin-bottom: 0.4rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cover-claim-text {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: #f8fafc;
+  font-weight: 500;
+}
+
+.cover-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 1rem;
+  font-size: 0.88rem;
+  color: #94a3b8;
+}
+
+/* 內頁樣式 */
+.slide-content-layout {
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  color: var(--text-main);
+  padding: 2.2rem 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.slide-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+
+.slide-category-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.slide-page-badge {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.slide-conclusion-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--navy-dark);
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+/* 卡片排版區 (支援 2~3 欄，金字塔支撐結構) */
+.slide-cards-grid {
+  flex: 1;
+  display: grid;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.slide-cards-grid.cards-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.slide-cards-grid.cards-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.slide-card-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  transition: var(--transition);
+}
+
+.slide-card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.08);
+}
+
+.card-top-stripe {
+  height: 4px;
+  background: var(--navy-light);
+}
+
+.slide-card-item:nth-child(2) .card-top-stripe {
+  background: var(--accent-gold);
+}
+
+.card-inner-content {
+  padding: 1.25rem 1.4rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-heading {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--navy-light);
+  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.card-bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.card-bullet-point {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  position: relative;
+  padding-left: 1.1rem;
+}
+
+.card-bullet-point::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--accent-gold);
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* 底部操作與進度條 */
+.briefing-footer {
+  height: 60px;
+  background-color: var(--navy-dark);
+  border-top: 1px solid rgba(203, 213, 225, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.5rem;
+  z-index: 40;
+}
+
+.footer-btn-nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.1rem;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.footer-btn-nav:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.footer-btn-nav:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.footer-btn-nav.primary {
+  background: var(--accent-gold);
+  border-color: var(--accent-gold-light);
+}
+
+.footer-btn-nav.primary:hover:not(:disabled) {
+  background: #b45309;
+}
+
+.footer-center {
+  flex: 1;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 1.5rem;
+}
+
+.progress-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--accent-gold);
+  border-radius: 9999px;
+  transition: width 0.2s ease;
+}
+
+.progress-text {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+/* 講者備忘稿抽屜 (Speaker Notes Drawer) */
+.speaker-notes-drawer {
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  background: rgba(10, 25, 47, 0.96);
+  backdrop-filter: blur(12px);
+  border-top: 2px solid var(--accent-gold);
+  padding: 1.25rem 2rem;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 45;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.speaker-notes-drawer.open {
+  transform: translateY(0);
+}
+
+.notes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.notes-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent-gold-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-close-notes {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.notes-content-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.notes-section {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+}
+
+.notes-sec-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+  margin-bottom: 0.4rem;
+}
+
+.notes-sec-body {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: #e2e8f0;
+}
+
+@media (max-width: 900px) {
+  .slide-viewport {
+    aspect-ratio: auto;
+    min-height: 520px;
+  }
+  .slide-cards-grid.cards-3, .slide-cards-grid.cards-2 {
+    grid-template-columns: 1fr;
+  }
+  .notes-content-grid {
+    grid-template-columns: 1fr;
+  }
+  .header-left .slide-select {
+    display: none;
+  }
+}
