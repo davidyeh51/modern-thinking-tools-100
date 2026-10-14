@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>萬維鋼·現代思維工具 100 講 | 10 分鐘精華導讀簡報（麥肯錫顧問風格）</title>
-  <meta name="description" content="依據麥肯錫顧問風格設計之 10 分鐘精華導讀簡報（14 頁精準架構）。涵蓋全書架構骨架、E01~E09 逐模組重點、論證脈絡串聯、總結落地行動與逐頁三段式講稿備忘錄。">
+  <title>萬維鋼·現代思維工具 100 講 | 10 分鐘獨立模組導讀簡報（麥肯錫顧問風格）</title>
+  <meta name="description" content="依據麥肯錫顧問風格設計之各模組 10 分鐘精華導讀簡報（E01～E09 獨立獨立 12–14 頁精準架構）。每頁配備金字塔行動標題、實體對比表格或矩陣、逐頁三段式講稿備忘錄與 PPTX 下載。">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap" rel="stylesheet">
 
   <!-- Briefing Styles -->
-  <link rel="stylesheet" href="briefing.css?v=20261014">
+  <link rel="stylesheet" href="briefing.css?v=20261015">
 </head>
 <body class="briefing-body">
 
@@ -21,8 +21,15 @@
     <div class="header-left">
       <a href="index.html" class="btn-nav-action" title="返回知識庫首頁">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        <span>知識庫首頁</span>
+        <span>首頁</span>
       </a>
+
+      <div class="header-divider"></div>
+
+      <!-- Module Selector Dropdown (E01 ~ E09) -->
+      <select id="briefing-module-select" class="module-select" title="切換 10 分鐘精華導讀模組 (E01～E09)">
+        <!-- Injected via briefing.js -->
+      </select>
 
       <div class="header-divider"></div>
 
@@ -33,22 +40,22 @@
     </div>
 
     <div class="header-right">
-      <!-- Direct Download PPTX File -->
-      <a href="wan_thinking_tools_100_briefing.pptx" download="wan_thinking_tools_100_briefing.pptx" class="btn-nav-action gold-highlight" title="直接下載 16:9 麥肯錫顧問風格 PPTX 檔案（含逐頁講稿備忘錄）">
+      <!-- Direct Download Active Module PPTX File -->
+      <a href="briefing_E01.pptx" download="briefing_E01.pptx" id="btn-download-pptx" class="btn-nav-action gold-highlight" title="直接下載當前模組 16:9 麥肯錫顧問風格 PPTX 檔案（含逐頁講稿備忘錄與實體表格）">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        <span>下載 PPTX 簡報</span>
+        <span id="btn-download-text">下載 E01 PPTX</span>
       </a>
 
       <!-- Switch to 120-lecture Deep-dive system -->
       <a href="slides.html" class="btn-nav-action" title="切換至全 120 講雙軌沉浸式深研系統">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-        <span>120 講全集放映</span>
+        <span>120 講全集</span>
       </a>
 
       <!-- Toggle Speaker Notes (N) -->
       <button class="btn-nav-action" id="btn-toggle-notes" title="切換逐頁講稿備忘錄（快捷鍵 N）">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
-        <span>講稿備忘錄 (N)</span>
+        <span>講稿 (N)</span>
       </button>
 
       <!-- Fullscreen Toggle (F) -->
@@ -84,7 +91,7 @@
       <div class="progress-track" id="progress-track" title="點選快速跳轉頁面">
         <div class="progress-fill" id="progress-fill" style="width: 7.14%;"></div>
       </div>
-      <div class="progress-text" id="progress-text">第 01 頁 / 共 14 頁</div>
+      <div class="progress-text" id="progress-text">第 01 頁 / 共 12 頁</div>
     </div>
 
     <div class="footer-right">
@@ -110,7 +117,7 @@
   </aside>
 
   <!-- Scripts -->
-  <script src="briefing_data.js"></script>
-  <script src="briefing.js"></script>
+  <script src="briefing_modules_data.js"></script>
+  <script src="briefing.js?v=20261015"></script>
 </body>
 </html>
